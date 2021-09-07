@@ -2,7 +2,7 @@
 
 Deploy [searx](https://searx.github.io/searx) on [heroku](https://heroku.com)
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://gitlab.com/Yellowhat/searx-heroku/tree/main)
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/yellowhat/searx-heroku/tree/main)
 
 *Note: Requires a (free) Heroku account*
 
