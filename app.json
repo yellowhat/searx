@@ -16,6 +16,6 @@
       "description": "Instance name.",
       "value": "searx",
       "required": false
-    },
+    }
   }
 }
