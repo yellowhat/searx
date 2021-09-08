@@ -912,7 +912,7 @@ engines:
     content_query: Snippet
     categories: general
     shortcut: wib
-    disabled: False
+    disabled: True
 
   - name: wikibooks
     engine: mediawiki
