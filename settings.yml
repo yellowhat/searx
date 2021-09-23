@@ -147,6 +147,26 @@ engines:
     shortcut: bc
     categories: music
 
+  - name : bing
+    engine : bing
+    shortcut : bi
+    disabled: True
+
+  - name : bing images
+    engine : bing_images
+    shortcut : bii
+    disabled: True
+
+  - name : bing news
+    engine : bing_news
+    shortcut : bin
+    disabled: True
+
+  - name : bing videos
+    engine : bing_videos
+    shortcut : biv
+    disabled: True
+ 
   - name: wikipedia
     engine: wikipedia
     shortcut: wp
