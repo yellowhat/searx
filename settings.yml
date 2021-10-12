@@ -342,6 +342,12 @@ engines:
       require_api_key: false
       results: HTML
 
+  - name : ebay
+    engine : ebay
+    shortcut : eb
+    disabled : True
+    timeout: 5
+
   - name: 1x
     engine: www1x
     shortcut: 1x
@@ -569,6 +575,12 @@ engines:
       require_api_key: false
       results: JSON
 
+  - name : imdb
+    engine : imdb
+    shortcut : imdb
+    timeout : 6.0
+    disabled : True
+
   - name: ina
     engine: ina
     shortcut: in
@@ -607,6 +619,23 @@ engines:
       website: https://libgen.rs/
       wikidata_id: Q22017206
       official_api_documentation:
+      use_official_api: false
+      require_api_key: false
+      results: HTML
+
+ - name : azlyrics
+    shortcut : azl
+    engine : xpath
+    timeout : 4.0
+    disabled : True
+    categories : general
+    paging : True
+    search_url : https://search.azlyrics.com/search.php?q={query}&w=lyrics&p={pageno}
+    url_xpath : //td[@class="text-left visitedlyr"]/a/@href
+    title_xpath : //span/b/text()
+    content_xpath : //td[@class="text-left visitedlyr"]/a/small
+    about:
+      website: https://azlyrics.com
       use_official_api: false
       require_api_key: false
       results: HTML
@@ -829,6 +858,18 @@ engines:
     engine: stackoverflow
     shortcut: st
 
+  - name: askubuntu
+    engine: stackexchange
+    shortcut: ubuntu
+    api_site: 'askubuntu'
+    categories: it
+
+  - name: superuser
+    engine: stackexchange
+    shortcut: su
+    api_site: 'superuser'
+    categories: it
+
   - name: searchcode code
     engine: searchcode_code
     shortcut: scc
@@ -890,6 +931,15 @@ engines:
     categories: onions
     enable_http: True
     shortcut: tch
+
+  - name : urbandictionary
+    engine        : xpath
+    search_url    : https://www.urbandictionary.com/define.php?term={query}
+    url_xpath     : //*[@class="word"]/@href
+    title_xpath   : //*[@class="def-header"]
+    content_xpath : //*[@class="meaning"]
+    shortcut : ud
+    disabled : True
 
   - name: unsplash
     engine: unsplash
@@ -1079,6 +1129,26 @@ engines:
       require_api_key: false
       results: HTML
 
+  - name : dogpile
+    shortcut : dp
+    engine : xpath
+    paging : True
+    # Doesn't work without the 'sc' parameter
+    search_url : https://www.dogpile.com/serp?q={query}&page={pageno}&sc=Gp0GqqlRVflv20
+    url_xpath : //span[@class="web-bing__url"]
+    title_xpath : //a[@class="web-bing__title"]
+    content_xpath : //span[@class="web-bing__description"]
+    page_size : 9
+    categories : general
+    timeout : 7.0
+    disabled : True
+    about:
+      website: https://www.dogpile.com
+      wikidata_id: Q3595363
+      use_official_api: false
+      require_api_key: false
+      results: html
+
   - name: whaleslide
     shortcut: whale
     engine: json_engine
@@ -1186,7 +1256,7 @@ engines:
     paging: True
     base_url: https://peer.tube/
     categories: videos
-    disabled: True
+    disabled: False
 
   - name: mediathekviewweb
     engine: mediathekviewweb
@@ -1251,6 +1321,24 @@ engines:
     categories: general
     timeout: 5.0
     disabled: True
+
+  - name: brave
+    engine: xpath
+    shortcut: brave
+    categories: general
+    disabled: True
+    paging: false
+    search_url: https://search.brave.com/search?q={query}
+    url_xpath: //div[@class="snippet fdb"]/a/@href
+    title_xpath: //span[@class="snippet-title"]
+    content_xpath: //p[1][@class="snippet-description"]
+    suggestion_xpath: //div[@class="text-gray h6"]/a
+    about:
+      website: https://brave.com/search/
+      wikidata_id: Q22906900
+      use_official_api: false
+      require_api_key: false
+      results: HTML
 
 locales:
     en: English
