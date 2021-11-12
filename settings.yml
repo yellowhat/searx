@@ -25,7 +25,7 @@ server:
     bind_address: "127.0.0.1" # address to listen on
     secret_key: "ultrasecretkey" # change this!
     base_url: False # Set custom base_url. Possible values: False or "https://your.custom.host/location/"
-    image_proxy: False # Proxying image results through searx
+    image_proxy: True # Proxying image results through searx
     http_protocol_version: "1.0"  # 1.0 and 1.1 are supported
     method: "POST" # POST queries are more secure as they don't show up in history but may cause problems when using Firefox containers
     default_http_headers:
@@ -309,13 +309,13 @@ engines:
   - name: duckduckgo
     engine: duckduckgo
     shortcut: d
-    disabled: True
+    disabled: False
 
   - name: duckduckgo images
     engine: duckduckgo_images
     shortcut: di
     timeout: 3.0
-    disabled: True
+    disabled: False
 
   - name: etools
     engine: etools
@@ -357,7 +357,7 @@ engines:
   - name: fdroid
     engine: fdroid
     shortcut: fd
-    disabled: True
+    disabled: False
 
   - name: free software directory
     engine: mediawiki
@@ -579,7 +579,7 @@ engines:
     engine : imdb
     shortcut : imdb
     timeout : 6.0
-    disabled : True
+    disabled : False
 
   - name: ina
     engine: ina
