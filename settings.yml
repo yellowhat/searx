@@ -42,7 +42,7 @@ ui:
     default_locale: "" # Default interface locale - leave blank to detect from browser information or use codes from the 'locales' config section
     results_on_new_tab: False # Open result links in a new tab by default
     theme_args:
-        oscar_style: logicodev-dark # default style of oscar
+        oscar_style: pointhi # default style of oscar
 
 outgoing: # communication with search engines
     request_timeout: 3.0 # default timeout in seconds, can be override by engine
