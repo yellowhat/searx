@@ -1,3 +1,4 @@
+---
 general:
     debug: False # Debug mode, only for development
     instance_name : "searx" # displayed name
@@ -166,7 +167,7 @@ engines:
     engine : bing_videos
     shortcut : biv
     disabled: True
- 
+
   - name: wikipedia
     engine: wikipedia
     shortcut: wp

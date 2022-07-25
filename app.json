@@ -1,21 +1,21 @@
 {
-  "name": "Searx",
-  "description": "Privacy-respecting, hackable metasearch engine / pronunciation sɜːks.",
-  "repository": "https://github.com/searx/searx",
-  "logo": "https://raw.githubusercontent.com/searx/searx/master/searx/static/themes/oscar/img/logo_searx_a.png",
-  "keywords": [
-    "search",
-    "metasearch",
-    "heroku",
-    "degoogle",
-    "privacy"
-  ],
-  "stack": "container",
-  "env": {
-    "INSTANCE_NAME": {
-      "description": "Instance name.",
-      "value": "searx",
-      "required": false
+    "name": "Searx",
+    "description": "Privacy-respecting, hackable metasearch engine",
+    "repository": "https://github.com/searx/searx",
+    "logo": "https://raw.githubusercontent.com/searx/searx/master/searx/static/themes/oscar/img/logo_searx_a.png",
+    "keywords": [
+        "search",
+        "metasearch",
+        "heroku",
+        "degoogle",
+        "privacy"
+    ],
+    "stack": "container",
+    "env": {
+        "INSTANCE_NAME": {
+            "description": "Instance name",
+            "value": "searx",
+            "required": false
+        }
     }
-  }
 }
