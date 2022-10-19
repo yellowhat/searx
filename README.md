@@ -1,14 +1,34 @@
-# searx-heroku
+# searx
 
-Deploy [searx](https://searx.github.io/searx) on [heroku](https://heroku.com)
+Deploy a custom [searx](https://searx.github.io/searx) instance
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/yellowhat/searx-heroku/tree/main)
+## Local
 
-## Requirements
+```console
+podman build -t searx -f Dockerfile .
+podman run -it --rm -p 8080:8080 searx
+```
 
-* A (free) Heroku account
+## [mogenius](https://mogenius.io)
 
-## Prevent downtime after periods of inactivity (30 mins)
+### Requirements
 
-* [easycron](https://easycron.com): use a (free) account with the cron expression `*/20 7-23 * * *`
-* [cronjob](https://github.com/benbusby/whoogle-search#prevent-downtime-heroku-only)
+* A free account
+* A `searx` container image
+
+### How-to
+
+1. Create a new account
+2. `Service name`: `searx`
+3. `Add a service` (Container image):
+    * `Container image`: `ghcr.io/yellowhat/searx`
+    * `CPU`: 0.5
+    * `RAM`: 1 GB
+    * `Temp. Storage`: 1 GB
+    * `Ports`: HTTPS/8080
+
+## Add search engine (Firefox)
+
+1. go to `https://<hostname>/search?q=searx`
+2. Right click on the address bar
+3. Click on `Add "searx"`
