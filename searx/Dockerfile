@@ -1,17 +1,17 @@
 FROM alpine:3.17.1
-
+ENTRYPOINT ["/sbin/tini", "--", "/usr/local/searx/dockerfiles/docker-entrypoint.sh"]
 EXPOSE 8080
-VOLUME /etc/searxng
+VOLUME /etc/searx
 VOLUME /var/log/uwsgi
 
-ENV INSTANCE_NAME=searxng \
-    SEARXNG_SETTINGS_PATH=/etc/searxng/settings.yml \
-    UWSGI_SETTINGS_PATH=/etc/searxng/uwsgi.ini \
-    CWD=/usr/local/searxng
+ENV INSTANCE_NAME=searx \
+    SEARX_SETTINGS_PATH=/etc/searx/settings.yml \
+    UWSGI_SETTINGS_PATH=/etc/searx/uwsgi.ini \
+    CWD=/usr/local/searx
 
 WORKDIR $CWD
 
-RUN adduser -u 977 -D -h "$CWD" -s /bin/sh searxng
+RUN adduser -u 977 -D -h "$CWD" -s /bin/sh searx
 
 RUN apk upgrade --no-cache \
  && apk add --no-cache --virtual build-dependencies \
@@ -23,9 +23,9 @@ RUN apk upgrade --no-cache \
         libxml2-dev \
         openssl-dev \
         tar \
+        git \
  && apk add --no-cache \
         ca-certificates \
-        git \
         su-exec \
         python3 \
         py3-pip \
@@ -36,8 +36,8 @@ RUN apk upgrade --no-cache \
         uwsgi \
         uwsgi-python3 \
         brotli \
- && git clone --depth 1 https://github.com/searxng/searxng . \
- && chown -R searxng:searxng . \
+ && git clone --depth 1 https://github.com/searx/searx . \
+ && chown -R searx:searx . \
  && pip3 install --upgrade pip \
  && pip3 install --no-cache -r requirements.txt \
  && apk del build-dependencies \
@@ -49,5 +49,3 @@ RUN python3 -m compileall -q searx \
  && find searx/static -a \( -name "*.html" -o -name "*.css" -o -name "*.js" \
         -o -name "*.svg" -o -name "*.ttf" -o -name "*.eot" \) \
         -type f -exec gzip -9 -k {} \+ -exec brotli --best {} \+
-
-ENTRYPOINT ["/sbin/tini", "--", "/usr/local/searxng/dockerfiles/docker-entrypoint.sh", "-f"]
