@@ -4,6 +4,8 @@ name: Container
 on:
   push:
   workflow_dispatch:
+  schedule:
+    - cron:  '0 6 * * Mon'
 
 env:
   REGISTRY: ghcr.io
