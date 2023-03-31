@@ -216,11 +216,6 @@ engines:
       require_api_key: false
       results: HTML
 
-  - name: ccengine
-    engine: ccengine
-    categories: images
-    shortcut: cce
-
   - name: crossref
     engine: json_engine
     paging: true
@@ -260,10 +255,6 @@ engines:
     weight: 2
     disabled: true
     tests: *tests_infobox
-
-  - name: digg
-    engine: digg
-    shortcut: dg
 
   - name: docker hub
     engine: docker_hub
@@ -331,11 +322,11 @@ engines:
       require_api_key: false
       results: HTML
 
-  - name : ebay
-    engine : ebay
-    shortcut : eb
-    disabled : true
-    timeout: 5
+  # - name: ebay
+  #   engine: ebay
+  #   shortcut: eb
+  #   disabled: true
+  #   timeout: 5
 
   - name: 1x
     engine: www1x
@@ -668,11 +659,6 @@ engines:
       require_api_key: false
       results: HTML
 
-  - name: microsoft academic
-    engine: microsoft_academic
-    categories: science
-    shortcut: ma
-
   - name: mixcloud
     engine: mixcloud
     shortcut: mc
@@ -845,23 +831,36 @@ engines:
       results: HTML
 
   - name: qwant
+    qwant_categ: web
     engine: qwant
     shortcut: qw
-    categories: general
-    disabled: true
+    disabled: false
+    categories: [general, web]
     additional_tests:
       rosebud: *test_rosebud
 
   - name: qwant news
+    qwant_categ: news
     engine: qwant
     shortcut: qwn
+    disabled: false
     categories: news
     network: qwant
 
   - name: qwant images
+    qwant_categ: images
     engine: qwant
     shortcut: qwi
-    categories: images
+    disabled: false
+    categories: [images, web]
+    network: qwant
+
+  - name: qwant videos
+    qwant_categ: videos
+    engine: qwant
+    shortcut: qwv
+    disabled: false
+    categories: [videos, web]
     network: qwant
 
   - name: reddit
@@ -880,8 +879,10 @@ engines:
     shortcut: sc
 
   - name: stackoverflow
-    engine: stackoverflow
+    engine: stackexchange
     shortcut: st
+    api_site: 'stackoverflow'
+    categories: [it, q&a]
 
   - name: askubuntu
     engine: stackexchange
@@ -943,12 +944,6 @@ engines:
       - https://solidtorrents.to
       - https://bitsearch.to
 
-  - name: torrentz
-    engine: torrentz
-    shortcut: tor
-    url: https://torrentz2.eu/
-    timeout: 3.0
-
   # Requires torch
   - name: torch
     engine: xpath
@@ -989,13 +984,6 @@ engines:
   - name: youtube
     shortcut: yt
     engine: youtube_noapi
-
-  - name: yggtorrent
-    engine: yggtorrent
-    shortcut: ygg
-    url: https://www4.yggtorrent.li/
-    disabled: true
-    timeout: 4.0
 
   - name: dailymotion
     engine: dailymotion
