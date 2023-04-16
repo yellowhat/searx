@@ -98,6 +98,11 @@ checker:
           - has_infobox
 
 engines:
+  - name: 9gag
+    engine: 9gag
+    shortcut: 9g
+    disabled: true
+
   - name: apk mirror
     engine: apkmirror
     timeout: 4.0
@@ -158,7 +163,7 @@ engines:
   - name : bing
     engine : bing
     shortcut : bi
-    disabled: true
+    disabled: false
 
   - name : bing images
     engine : bing_images
@@ -249,17 +254,11 @@ engines:
     shortcut: da
     timeout: 3.0
 
-  - name: ddg definitions
-    engine: duckduckgo_definitions
-    shortcut: ddd
-    weight: 2
-    disabled: true
-    tests: *tests_infobox
-
   - name: docker hub
     engine: docker_hub
     shortcut: dh
     categories: [it, packages]
+    disabled: false
 
   - name: erowid
     engine: xpath
@@ -298,6 +297,13 @@ engines:
     shortcut: di
     timeout: 3.0
     disabled: false
+
+  - name: ddg definitions
+    engine: duckduckgo_definitions
+    shortcut: ddd
+    weight: 2
+    disabled: false
+    tests: *tests_infobox
 
   - name: tineye
     engine: tineye
@@ -408,6 +414,7 @@ engines:
   - name: github
     engine: github
     shortcut: gh
+    disabled: false
 
     # This a Gitea service. If you would like to use a different instance,
     # change codeberg.org to URL of the desired Gitea host. Or you can create
@@ -420,7 +427,7 @@ engines:
     content_query: description
     categories: [it, repos]
     shortcut: cb
-    disabled: true
+    disabled: false
     about:
       website: https://codeberg.org/
       wikidata_id:
@@ -432,23 +439,28 @@ engines:
   - name: google
     engine: google
     shortcut: g
+    disabled: false
     use_mobile_ui: false
 
   - name: google images
     engine: google_images
     shortcut: gi
+    disabled: false
 
   - name: google news
     engine: google_news
     shortcut: gn
+    disabled: false
 
   - name: google videos
     engine: google_videos
     shortcut: gv
+    disabled: false
 
   - name: google scholar
     engine: google_scholar
     shortcut: gs
+    disabled: false
 
   - name: google play apps
     engine: xpath
@@ -460,7 +472,7 @@ engines:
     thumbnail_xpath: './/div[@class="uzcko"]/div/span[1]//img/@data-src'
     categories: files
     shortcut: gpa
-    disabled: true
+    disabled: false
     about:
       website: https://play.google.com/
       wikidata_id: Q79576
@@ -569,7 +581,7 @@ engines:
     engine : imdb
     shortcut : imdb
     timeout : 6.0
-    disabled : true
+    disabled: false
 
   - name: ina
     engine: ina
@@ -589,7 +601,7 @@ engines:
       - https://inv.riverside.rocks
     shortcut: iv
     timeout: 3.0
-    disabled: true
+    disabled: false
 
   - name: kickass
     engine: kickass
@@ -674,7 +686,7 @@ engines:
     content_query: package/description
     page_size: 25
     categories: [it, packages]
-    disabled: true
+    disabled: false
     timeout: 5.0
     shortcut: npm
     about:
@@ -749,6 +761,7 @@ engines:
   - name: openstreetmap
     engine: openstreetmap
     shortcut: osm
+    disabled: false
 
   - name: openrepos
     engine: xpath
@@ -873,14 +886,17 @@ engines:
   - name: sepiasearch
     engine: sepiasearch
     shortcut: sep
+    disabled: false
 
   - name: soundcloud
     engine: soundcloud
     shortcut: sc
+    disabled: false
 
   - name: stackoverflow
     engine: stackexchange
     shortcut: st
+    disabled: false
     api_site: 'stackoverflow'
     categories: [it, q&a]
 
@@ -893,6 +909,7 @@ engines:
   - name: superuser
     engine: stackexchange
     shortcut: su
+    disabled: false
     api_site: 'superuser'
     categories: it
 
@@ -923,7 +940,7 @@ engines:
     engine: startpage
     shortcut: sp
     timeout: 6.0
-    disabled: true
+    disabled: false
     additional_tests:
       rosebud: *test_rosebud
 
@@ -937,7 +954,7 @@ engines:
     engine: solidtorrents
     shortcut: solid
     timeout: 4.0
-    disabled: false
+    disabled: true
     base_url:
       - https://solidtorrents.net
       - https://solidtorrents.eu
@@ -958,14 +975,14 @@ engines:
     enable_http: true
     shortcut: torch
 
-  - name : urbandictionary
-    engine        : xpath
-    search_url    : https://www.urbandictionary.com/define.php?term={query}
-    url_xpath     : //*[@class="word"]/@href
-    title_xpath   : //*[@class="def-header"]
-    content_xpath : //*[@class="meaning"]
-    shortcut : ud
-    disabled : true
+  - name: urbandictionary
+    engine: xpath
+    search_url: https://www.urbandictionary.com/define.php?term={query}
+    url_xpath: //*[@class="word"]/@href
+    title_xpath: //*[@class="def-header"]
+    content_xpath: //*[@class="meaning"]
+    shortcut: ud
+    disabled: false
 
   - name: unsplash
     engine: unsplash
@@ -984,14 +1001,17 @@ engines:
   - name: youtube
     shortcut: yt
     engine: youtube_noapi
+    disabled: false
 
   - name: dailymotion
     engine: dailymotion
     shortcut: dm
+    disabled: false
 
   - name: vimeo
     engine: vimeo
     shortcut: vm
+    disabled: false
 
   - name: wiby
     engine: json_engine
@@ -1001,7 +1021,7 @@ engines:
     content_query: Snippet
     categories: general
     shortcut: wib
-    disabled: true
+    disabled: false
 
   - name: wikibooks
     engine: mediawiki
@@ -1010,7 +1030,7 @@ engines:
     base_url: "https://{language}.wikibooks.org/"
     number_of_results: 5
     search_type: text
-    disabled: true
+    disabled: false
     about:
       website: https://www.wikibooks.org/
       wikidata_id: Q367
@@ -1022,7 +1042,7 @@ engines:
     base_url: "https://{language}.wikinews.org/"
     number_of_results: 5
     search_type: text
-    disabled: true
+    disabled: false
     about:
       website: https://www.wikinews.org/
       wikidata_id: Q964
@@ -1034,7 +1054,7 @@ engines:
     base_url: "https://{language}.wikiquote.org/"
     number_of_results: 5
     search_type: text
-    disabled: true
+    disabled: false
     additional_tests:
       rosebud: *test_rosebud
     about:
@@ -1048,7 +1068,7 @@ engines:
     base_url: "https://{language}.wikisource.org/"
     number_of_results: 5
     search_type: text
-    disabled: true
+    disabled: false
     about:
       website: https://www.wikisource.org/
       wikidata_id: Q263
@@ -1098,10 +1118,12 @@ engines:
     engine: wolframalpha_noapi
     timeout: 6.0
     categories: science
+    disabled: false
 
   - name: dictzone
     engine: dictzone
     shortcut: dc
+    disabled: false
 
   - name: mymemory translated
     engine: translated
@@ -1277,7 +1299,7 @@ engines:
     base_url: https://peertube.biz/
     # base_url: https://tube.tardis.world/
     categories: videos
-    disabled: true
+    disabled: false
     timeout: 6.0
 
   - name: mediathekviewweb
@@ -1371,7 +1393,7 @@ engines:
     content_xpath: //p[1][@class="snippet-description"]
     suggestion_xpath: //div[@class="text-gray h6"]/a
     categories: [general, web]
-    disabled: true
+    disabled: false
     about:
       website: https://brave.com/search/
       wikidata_id: Q107355971
@@ -1380,51 +1402,51 @@ engines:
       results: HTML
 
 locales:
-    en: English
-    ar: العَرَبِيَّة (Arabic)
-    bg: Български (Bulgarian)
-    bo: བོད་སྐད་ (Tibetian)
-    ca: Català (Catalan)
-    cs: Čeština (Czech)
-    cy: Cymraeg (Welsh)
-    da: Dansk (Danish)
-    de: Deutsch (German)
-    el_GR: Ελληνικά (Greek_Greece)
-    eo: Esperanto (Esperanto)
-    es: Español (Spanish)
-    et: Eesti (Estonian)
-    eu: Euskara (Basque)
-    fa_IR: (fārsī) فارسى (Persian)
-    fi: Suomi (Finnish)
-    fil: Wikang Filipino (Filipino)
-    fr: Français (French)
-    gl: Galego (Galician)
-    he: עברית (Hebrew)
-    hr: Hrvatski (Croatian)
-    hu: Magyar (Hungarian)
-    ia: Interlingua (Interlingua)
-    it: Italiano (Italian)
-    ja: 日本語 (Japanese)
-    lt: Lietuvių (Lithuanian)
-    nl: Nederlands (Dutch)
-    nl_BE: Vlaams (Dutch_Belgium)
-    oc: Lenga D'òc (Occitan)
-    pl: Polski (Polish)
-    pt: Português (Portuguese)
-    pt_BR: Português (Portuguese_Brazil)
-    ro: Română (Romanian)
-    ru: Русский (Russian)
-    sk: Slovenčina (Slovak)
-    sl: Slovenski (Slovene)
-    sr: српски (Serbian)
-    sv: Svenska (Swedish)
-    te: తెలుగు (telugu)
-    ta: தமிழ் (Tamil)
-    tr: Türkçe (Turkish)
-    uk: українська мова (Ukrainian)
-    vi: tiếng việt (Vietnamese)
-    zh: 中文 (Chinese)
-    zh_TW: 國語 (Taiwanese Mandarin)
+  en: English
+  ar: العَرَبِيَّة (Arabic)
+  bg: Български (Bulgarian)
+  bo: བོད་སྐད་ (Tibetian)
+  ca: Català (Catalan)
+  cs: Čeština (Czech)
+  cy: Cymraeg (Welsh)
+  da: Dansk (Danish)
+  de: Deutsch (German)
+  el_GR: Ελληνικά (Greek_Greece)
+  eo: Esperanto (Esperanto)
+  es: Español (Spanish)
+  et: Eesti (Estonian)
+  eu: Euskara (Basque)
+  fa_IR: (fārsī) فارسى (Persian)
+  fi: Suomi (Finnish)
+  fil: Wikang Filipino (Filipino)
+  fr: Français (French)
+  gl: Galego (Galician)
+  he: עברית (Hebrew)
+  hr: Hrvatski (Croatian)
+  hu: Magyar (Hungarian)
+  ia: Interlingua (Interlingua)
+  it: Italiano (Italian)
+  ja: 日本語 (Japanese)
+  lt: Lietuvių (Lithuanian)
+  nl: Nederlands (Dutch)
+  nl_BE: Vlaams (Dutch_Belgium)
+  oc: Lenga D'òc (Occitan)
+  pl: Polski (Polish)
+  pt: Português (Portuguese)
+  pt_BR: Português (Portuguese_Brazil)
+  ro: Română (Romanian)
+  ru: Русский (Russian)
+  sk: Slovenčina (Slovak)
+  sl: Slovenski (Slovene)
+  sr: српски (Serbian)
+  sv: Svenska (Swedish)
+  te: తెలుగు (telugu)
+  ta: தமிழ் (Tamil)
+  tr: Türkçe (Turkish)
+  uk: українська мова (Ukrainian)
+  vi: tiếng việt (Vietnamese)
+  zh: 中文 (Chinese)
+  zh_TW: 國語 (Taiwanese Mandarin)
 
 doi_resolvers:
   oadoi.org: "https://oadoi.org/"
