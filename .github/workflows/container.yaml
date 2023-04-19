@@ -4,8 +4,8 @@ name: Container
 on:
   push:
   workflow_dispatch:
-  schedule:
-    - cron: '0 5 * * *'
+  # schedule:
+  #   - cron: '0 5 * * *'
 
 env:
   REGISTRY: ghcr.io
