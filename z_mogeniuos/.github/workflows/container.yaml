@@ -4,8 +4,8 @@ name: Container
 on:
   push:
   workflow_dispatch:
-  schedule:
-    - cron: '0 5 * * *'
+  # schedule:
+  #   - cron: '0 5 * * *'
 
 env:
   REGISTRY: ghcr.io
@@ -43,24 +43,17 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
 
-  update-oc:
+  restart-service:
     needs: build-and-push
     runs-on: ubuntu-latest
     steps:
-      - name: Authenticate and set context
-        uses: redhat-actions/oc-login@v1
-        with:
-          openshift_server_url: ${{ secrets.OC_SERVER }}
-          openshift_token: ${{ secrets.OC_TOKEN }}
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-      - name: Show
-        run: kubectl get pods
-
-      # - name: Deploy
-      #   run: kubectl create -f k8s
-
-      - name: Scale to 0
-        run: kubectl scale deployments/searxng --replicas=0
-
-      - name: Scale to 1
-        run: kubectl scale deployments/searxng --replicas=1
+      - name: Restart
+        env:
+          MOGENIUS_EMAIL: ${{ secrets.MOGENIUS_EMAIL }}
+          MOGENIUS_PASSWORD: ${{ secrets.MOGENIUS_PASSWORD }}
+          MOGENIUS_NAMESPACE_ID: ${{ secrets.MOGENIUS_NAMESPACE_ID }}
+          MOGENIUS_SERVICE_ID: ${{ secrets.MOGENIUS_SERVICE_ID }}
+        run: python .github/mogenius-restart.py

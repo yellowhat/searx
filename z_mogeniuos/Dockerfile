@@ -37,22 +37,17 @@ RUN apk upgrade --no-cache \
         uwsgi-python3 \
         brotli \
  && git clone --depth 1 https://github.com/searxng/searxng . \
+ && chown -R searxng:searxng . \
  && pip3 install --upgrade pip \
  && pip3 install --no-cache -r requirements.txt \
  && apk del build-dependencies \
- && rm -rf .git /root/.cache
+ && rm -rf /root/.cache
 
 COPY settings.yml searx/settings.yml
-COPY uwsgi.ini uwsgi.ini
-COPY docker-entrypoint.sh docker-entrypoint.sh
-
-RUN sed \
-    -e "s/ultrasecretkey/$(openssl rand -hex 32)/g" \
-    -i searx/settings.yml
 
 RUN python3 -m compileall -q searx \
  && find searx/static -a \( -name "*.html" -o -name "*.css" -o -name "*.js" \
         -o -name "*.svg" -o -name "*.ttf" -o -name "*.eot" \) \
         -type f -exec gzip -9 -k {} \+ -exec brotli --best {} \+
 
-ENTRYPOINT ["/sbin/tini", "--", "/usr/local/searxng/docker-entrypoint.sh"]
+ENTRYPOINT ["/sbin/tini", "--", "/usr/local/searxng/dockerfiles/docker-entrypoint.sh", "-f"]
