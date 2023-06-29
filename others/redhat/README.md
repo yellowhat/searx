@@ -5,11 +5,11 @@ Deploy a custom [searx](https://searx.github.io/searx) instance
 ## Local
 
 ```console
-podman build -t searx -f Dockerfile .
-podman run -it --rm -p 8080:8080 searx
+podman build --file Dockerfile --tag searx .
+podman run -it --rm -p 8080:8080 --user 1000:1000 searx
 ```
 
-## [koyeb](https://koyeb.com)
+## [RedHat Developer](https://developers.redhat.com)
 
 ### Requirements
 
@@ -19,10 +19,13 @@ podman run -it --rm -p 8080:8080 searx
 ### How-to
 
 1. Create a new account
-2. `Service name`: `searx`
-3. `Add a service` (Container image):
-    * `Container image`: `ghcr.io/yellowhat/searx`
-    * `Ports`: HTTP/8080
+2. Install kubernetes manifests:
+
+    ```bash
+    git clone https://github.com/yellowhat/searx searx
+    cd searx
+    kubectl create -f k8s/
+    ```
 
 ## Add search engine (Firefox)
 
