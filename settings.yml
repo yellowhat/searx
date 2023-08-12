@@ -59,8 +59,8 @@ enabled_plugins:
 hostname_replace:
   '(.*\.)?youtube\.com$': "piped.kavin.rocks"
   '(.*\.)?youtu\.be$': "piped.kavin.rocks"
-  '(.*\.)?reddit\.com$': "teddit.net"
-  '(.*\.)?redd\.it$': "teddit.net"
+  # '(.*\.)?reddit\.com$': "teddit.net"
+  # '(.*\.)?redd\.it$': "teddit.net"
   '(www\.)?twitter\.com$': "nitter.net"
 
 checker:
