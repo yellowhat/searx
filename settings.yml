@@ -13,7 +13,7 @@ brand:
 
 search:
   safe_search: 0 # Filter results. 0: None, 1: Moderate, 2: Strict
-  autocomplete: "google" # Existing autocomplete backends: "dbpedia", "duckduckgo", "google", "startpage", "swisscows", "qwant", "wikipedia" - leave blank to turn it off by default
+  autocomplete: "duckduckgo" # Existing autocomplete backends: "dbpedia", "duckduckgo", "google", "startpage", "swisscows", "qwant", "wikipedia" - leave blank to turn it off by default
   default_lang: "" # Default search language - leave blank to detect from browser information or use codes from 'languages.py'
   ban_time_on_fail: 5 # ban time in seconds after engine errors
   max_ban_time_on_fail: 120 # max ban time in seconds after engine errors
@@ -431,28 +431,28 @@ engines:
   - name: google
     engine: google
     shortcut: g
-    disabled: false
+    disabled: true
     use_mobile_ui: false
 
   - name: google images
     engine: google_images
     shortcut: gi
-    disabled: false
+    disabled: true
 
   - name: google news
     engine: google_news
     shortcut: gn
-    disabled: false
+    disabled: true
 
   - name: google videos
     engine: google_videos
     shortcut: gv
-    disabled: false
+    disabled: true
 
   - name: google scholar
     engine: google_scholar
     shortcut: gs
-    disabled: false
+    disabled: true
 
   - name: google play apps
     engine: xpath
@@ -464,7 +464,7 @@ engines:
     thumbnail_xpath: './/div[@class="uzcko"]/div/span[1]//img/@data-src'
     categories: files
     shortcut: gpa
-    disabled: false
+    disabled: true
     about:
       website: https://play.google.com/
       wikidata_id: Q79576
