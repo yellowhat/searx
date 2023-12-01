@@ -1,4 +1,4 @@
-FROM alpine:3.18.4
+FROM alpine:3.18.5
 
 EXPOSE 8080
 VOLUME /etc/searxng
