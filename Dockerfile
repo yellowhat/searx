@@ -39,8 +39,8 @@ RUN apk upgrade --no-cache \
  && git clone --depth 1 https://github.com/searxng/searxng . \
  && chown -R searxng:searxng . \
  && git config --global --add safe.directory "$CWD" \
- && pip3 install --upgrade pip \
- && pip3 install --no-cache -r requirements.txt \
+ && pip3 install --break-system-packages --upgrade pip \
+ && pip3 install --break-system-packages --no-cache -r requirements.txt \
  && apk del build-dependencies \
  && rm -rf /root/.cache
 
