@@ -431,23 +431,23 @@ engines:
   - name: google
     engine: google
     shortcut: g
-    disabled: true
+    disabled: false
     use_mobile_ui: false
 
   - name: google images
     engine: google_images
     shortcut: gi
-    disabled: true
+    disabled: false
 
   - name: google news
     engine: google_news
     shortcut: gn
-    disabled: true
+    disabled: false
 
   - name: google videos
     engine: google_videos
     shortcut: gv
-    disabled: true
+    disabled: false
 
   - name: google scholar
     engine: google_scholar
@@ -464,6 +464,25 @@ engines:
     thumbnail_xpath: './/div[@class="uzcko"]/div/span[1]//img/@data-src'
     categories: files
     shortcut: gpa
+    disabled: true
+    about:
+      website: https://play.google.com/
+      wikidata_id: Q79576
+      official_api_documentation:
+      use_official_api: false
+      require_api_key: false
+      results: HTML
+
+  - name: google play movies
+    engine: xpath
+    search_url: https://play.google.com/store/search?q={query}&c=movies
+    results_xpath: '//div[@class="ImZGtf mpg5gc"]'
+    title_xpath: './/div[@class="RZEgze"]//div[@class="kCSSQe"]//a'
+    url_xpath: './/div[@class="RZEgze"]//div[@class="kCSSQe"]//a/@href'
+    content_xpath: './/div[@class="kCSSQe"]'
+    thumbnail_xpath: './/div[@class="uzcko"]/div/span[1]//img/@data-src'
+    categories: videos
+    shortcut: gpm
     disabled: true
     about:
       website: https://play.google.com/
@@ -492,25 +511,6 @@ engines:
       use_official_api: false
       requires_api_key: false
       results: JSON
-
-  - name: google play movies
-    engine: xpath
-    search_url: https://play.google.com/store/search?q={query}&c=movies
-    results_xpath: '//div[@class="ImZGtf mpg5gc"]'
-    title_xpath: './/div[@class="RZEgze"]//div[@class="kCSSQe"]//a'
-    url_xpath: './/div[@class="RZEgze"]//div[@class="kCSSQe"]//a/@href'
-    content_xpath: './/div[@class="kCSSQe"]'
-    thumbnail_xpath: './/div[@class="uzcko"]/div/span[1]//img/@data-src'
-    categories: videos
-    shortcut: gpm
-    disabled: true
-    about:
-      website: https://play.google.com/
-      wikidata_id: Q79576
-      official_api_documentation:
-      use_official_api: false
-      require_api_key: false
-      results: HTML
 
   - name: geektimes
     engine: xpath
@@ -984,11 +984,12 @@ engines:
   - name: yahoo
     engine: yahoo
     shortcut: yh
-    disabled: true
+    disabled: false
 
   - name: yahoo news
     engine: yahoo_news
     shortcut: yhn
+    disabled: false
 
   - name: youtube
     shortcut: yt
