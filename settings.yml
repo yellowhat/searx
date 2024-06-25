@@ -293,9 +293,29 @@ engines:
     disabled: false
 
   - name: duckduckgo images
-    engine: duckduckgo_images
-    shortcut: di
-    timeout: 3.0
+    engine: duckduckgo_extra
+    categories: [images, web]
+    ddg_category: images
+    shortcut: ddi
+    disabled: false
+
+  - name: duckduckgo videos
+    engine: duckduckgo_extra
+    categories: [videos, web]
+    ddg_category: videos
+    shortcut: ddv
+    disabled: false
+
+  - name: duckduckgo news
+    engine: duckduckgo_extra
+    categories: [news, web]
+    ddg_category: news
+    shortcut: ddn
+    disabled: false
+
+  - name: duckduckgo weather
+    engine: duckduckgo_weather
+    shortcut: ddw
     disabled: false
 
   - name: ddg definitions
@@ -908,11 +928,6 @@ engines:
   - name: searchcode code
     engine: searchcode_code
     shortcut: scc
-    disabled: true
-
-  - name: framalibre
-    engine: framalibre
-    shortcut: frl
     disabled: true
 
   - name: semantic scholar
