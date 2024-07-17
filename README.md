@@ -5,7 +5,7 @@ Deploy a custom [searx](https://searx.github.io/searx) instance
 ## Local
 
 ```console
-podman build -t searx -f Dockerfile .
+podman build -t searx .
 podman run -it --rm -p 8080:8080 searx
 ```
 

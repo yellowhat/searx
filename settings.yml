@@ -55,13 +55,7 @@ enabled_plugins:
   - "Infinite scroll"
   - "Self Information"
   - "Tracker URL remover"
-  - "Hostname replace"
-hostname_replace:
-  '(.*\.)?youtube\.com$': "piped.kavin.rocks"
-  '(.*\.)?youtu\.be$': "piped.kavin.rocks"
-  # '(.*\.)?reddit\.com$': "teddit.net"
-  # '(.*\.)?redd\.it$': "teddit.net"
-  '(www\.)?twitter\.com$': "nitter.net"
+  - "Basic Calculator"
 
 checker:
   # disable checker when in debug mode
@@ -398,10 +392,6 @@ engines:
   - name: genius
     engine: genius
     shortcut: gen
-
-  - name: gentoo
-    engine: gentoo
-    shortcut: ge
 
   - name: gitlab
     engine: json_engine

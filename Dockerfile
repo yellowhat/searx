@@ -44,7 +44,7 @@ RUN apk upgrade --no-cache \
  && apk del build-dependencies \
  && rm -rf /root/.cache
 
-COPY settings.yml searx/settings.yml
+COPY settings.yml /etc/searxng/settings.yml
 COPY uwsgi.ini uwsgi.ini
 COPY docker-entrypoint.sh docker-entrypoint.sh
 

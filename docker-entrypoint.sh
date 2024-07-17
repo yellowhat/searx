@@ -5,7 +5,7 @@ printf '[INFO] Searx version: %s\n\n' "${SEARX_VERSION}"
 
 echo "[INFO] Change ultrasecretkey"
 sed -e "s/ultrasecretkey/$(openssl rand -hex 32)/g" \
-    -i searx/settings.yml
+    -i /etc/searxng/settings.yml
 
 # Start uwsgi
 uwsgi --master --http-socket "0.0.0.0:8080" "uwsgi.ini"
