@@ -22,7 +22,9 @@ podman run -it --rm -p 8080:8080 searx
 2. `Service name`: `searx`
 3. `Add a service` (Container image):
     * `Container image`: `ghcr.io/yellowhat/searx`
-    * `Ports`: HTTP/8080
+    * `CPU Eco`: `Free`
+    * `Exposed Ports`: `8080`, `HTTP`, `/`
+    * `Health checks`: `8080`, `HTTP`, `/`, `GET`
 
 ## Add search engine (Firefox)
 
