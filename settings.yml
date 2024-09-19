@@ -973,13 +973,13 @@ engines:
     shortcut: torch
 
   - name: urbandictionary
+    disabled: true
+    shortcut: ud
     engine: xpath
     search_url: https://www.urbandictionary.com/define.php?term={query}
     url_xpath: //*[@class="word"]/@href
     title_xpath: //*[@class="def-header"]
     content_xpath: //*[@class="meaning"]
-    shortcut: ud
-    disabled: false
 
   - name: unsplash
     engine: unsplash
@@ -1382,6 +1382,7 @@ engines:
       results: HTML
 
   - name: brave
+    disabled: true
     shortcut: brave
     engine: xpath
     paging: false
@@ -1391,7 +1392,6 @@ engines:
     content_xpath: //p[1][@class="snippet-description"]
     suggestion_xpath: //div[@class="text-gray h6"]/a
     categories: [general, web]
-    disabled: false
     about:
       website: https://brave.com/search/
       wikidata_id: Q107355971
