@@ -1,4 +1,4 @@
-FROM alpine:3.20.3
+FROM docker.io/alpine:3.20.3
 
 EXPOSE 8080
 VOLUME /etc/searxng
@@ -13,8 +13,7 @@ WORKDIR $CWD
 
 RUN adduser -u 977 -D -h "$CWD" -s /bin/sh searxng
 
-RUN apk upgrade --no-cache \
- && apk add --no-cache --virtual build-dependencies \
+RUN apk add --no-cache --virtual build-dependencies \
         build-base \
         py3-setuptools \
         python3-dev \
@@ -51,6 +50,8 @@ COPY docker-entrypoint.sh docker-entrypoint.sh
 RUN python3 -m compileall -q searx \
  && find searx/static -a \( -name "*.html" -o -name "*.css" -o -name "*.js" \
         -o -name "*.svg" -o -name "*.ttf" -o -name "*.eot" \) \
-        -type f -exec gzip -9 -k {} \+ -exec brotli --best {} \+
+        -type f -exec gzip -9 -k {} \+ -exec brotli --best {} \+ \
+  # Avoid warning about file not found
+ && cp searx/limiter.toml /etc/searxng/limiter.toml
 
 ENTRYPOINT ["/sbin/tini", "--", "/usr/local/searxng/docker-entrypoint.sh"]
