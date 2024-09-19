@@ -1,8 +1,7 @@
 general:
-  debug: false # Debug mode, only for development
-  instance_name : "searxng" # Displayed name
-  contact_url: false # mailto:contact@example.com
-  enable_stats: true # Record stats
+  debug: false  # Debug mode, only for development
+  instance_name : "searxng"  # Displayed name
+  enable_metrics: true  # Record stats
 
 brand:
   new_issue_url: https://github.com/searxng/searxng/issues/new
@@ -28,17 +27,20 @@ server:
   method: "POST" # POST queries are more secure as they don't show up in history but may cause problems when using Firefox containers
   default_http_headers:
     X-Content-Type-Options: nosniff
-    X-XSS-Protection: 1; mode=block
     X-Download-Options: noopen
     X-Robots-Tag: noindex, nofollow
     Referrer-Policy: no-referrer
 
+redis:
+  url: false
+
 ui:
-  static_path: "" # Custom static path - leave it blank if you didn't change
-  templates_path: "" # Custom templates path - leave it blank if you didn't change
-  default_theme: simple # ui theme
-  default_locale: "" # Default interface locale - leave blank to detect from browser information or use codes from the 'locales' config section
-  results_on_new_tab: false # Open result links in a new tab by default
+  # Automatically loads the next page when scrolling to bottom of the current page.
+  infinite_scroll: false
+  # Hotkeys: default or vim
+  hotkeys: default
+  # UI theme
+  default_theme: simple
   theme_args:
     simple_style: dark
 
@@ -52,7 +54,6 @@ outgoing: # communication with search engines
 
 enabled_plugins:
   - "HTTPS rewrite"
-  - "Infinite scroll"
   - "Self Information"
   - "Tracker URL remover"
   - "Basic Calculator"
@@ -93,15 +94,15 @@ checker:
 
 engines:
   - name: 9gag
+    disabled: true
     engine: 9gag
     shortcut: 9g
-    disabled: true
 
   - name: apk mirror
+    disabled: true
     engine: apkmirror
     timeout: 4.0
     shortcut: apkm
-    disabled: true
 
   # Requires Tor
   - name: ahmia
