@@ -1,7 +1,9 @@
 general:
   debug: false
-  instance_name : "searxng"  # Displayed name
-  enable_metrics: true  # Record stats
+  # Displayed name
+  instance_name : searxng
+  # Record stats, available under /stats
+  enable_metrics: true
 
 brand:
   new_issue_url: https://github.com/searxng/searxng/issues/new
