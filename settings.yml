@@ -112,25 +112,6 @@ engines:
     engine: archlinux
     shortcut: al
 
-  - name: archive is
-    disabled: false
-    engine: xpath
-    search_url: https://archive.is/search/?q={query}
-    url_xpath: (//div[@class="TEXT-BLOCK"]/a)/@href
-    title_xpath: (//div[@class="TEXT-BLOCK"]/a)
-    content_xpath: //div[@class="TEXT-BLOCK"]/ul/li
-    categories: general
-    timeout: 7.0
-    shortcut: ai
-    soft_max_redirects: 1
-    about:
-      website: https://archive.is/
-      wikidata_id: Q13515725
-      official_api_documentation: https://mementoweb.org/depot/native/archiveis/
-      use_official_api: false
-      require_api_key: false
-      results: HTML
-
   - name: arxiv
     disabled: false
     engine: arxiv
@@ -689,26 +670,6 @@ engines:
       website: https://www.mojeek.com/
       wikidata_id: Q60747299
       official_api_documentation: https://www.mojeek.com/services/api.html/
-      use_official_api: false
-      require_api_key: false
-      results: HTML
-
-  - name: petal
-    disabled: false
-    shortcut: petal
-    engine: xpath
-    paging: true
-    search_url: https://petalsearch.com/search?query={query}&pn={pageno}
-    title_xpath: //span[@class="title-name"]
-    url_xpath: //div[@class="card-source"]/text()
-    content_xpath: //span[@class="desc-cont"]
-    suggestion_xpath: //*[@class="rs-text"]/*[contains(class, rs-text)]
-    page_size: 12
-    categories: general
-    timeout: 4.0
-    about:
-      website: https://petalsearch.com
-      wikidata_id: #
       use_official_api: false
       require_api_key: false
       results: HTML
