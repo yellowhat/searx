@@ -22,10 +22,9 @@ RUN apk add --no-cache --virtual build-dependencies \
         libxml2-dev \
         openssl-dev \
         tar \
+        git \
  && apk add --no-cache \
         ca-certificates \
-        git \
-        su-exec \
         python3 \
         py3-pip \
         libxml2 \
@@ -38,8 +37,7 @@ RUN apk add --no-cache --virtual build-dependencies \
  && git clone --depth 1 https://github.com/searxng/searxng . \
  && chown -R searxng:searxng . \
  && git config --global --add safe.directory "$CWD" \
- && pip3 install --break-system-packages --upgrade pip \
- && pip3 install --break-system-packages --no-cache -r requirements.txt \
+ && pip3 install --break-system-packages --no-cache --requirement requirements.txt \
  && apk del build-dependencies \
  && rm -rf /root/.cache
 
