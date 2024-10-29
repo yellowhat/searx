@@ -1,0 +1,824 @@
+general:
+  debug: false
+  # Displayed name
+  instance_name : searxng
+  # Record stats, available under /stats
+  enable_metrics: true
+
+brand:
+  new_issue_url: https://github.com/searxng/searxng/issues/new
+  docs_url: https://docs.searxng.org/
+  public_instances: https://searx.space
+  wiki_url: https://github.com/searxng/searxng/wiki
+  issue_url: https://github.com/searxng/searxng/issues
+
+search:
+  # Filter results. 0: None, 1: Moderate, 2: Strict
+  safe_search: 0
+  # Existing autocomplete backends: "dbpedia", "duckduckgo", "google", "startpage", "swisscows", "qwant", "wikipedia" - leave blank to turn it off by default
+  autocomplete: "duckduckgo"
+  # Default search language - leave blank to detect from browser information or use codes from 'languages.py'
+  default_lang: ""
+  # Ban time in seconds after engine errors
+  ban_time_on_fail: 5
+  # Max ban time in seconds after engine errors
+  max_ban_time_on_fail: 120
+
+server:
+  port: 8888
+  # Address to listen on
+  bind_address: "127.0.0.1"
+  secret_key: "ultrasecretkey" # change this!
+  base_url: / # Set custom base_url. Possible values: false or "https://your.custom.host/location/"
+  image_proxy: true # Proxying image results through searx
+  http_protocol_version: "1.0"  # 1.0 and 1.1 are supported
+  method: "POST" # POST queries are more secure as they don't show up in history but may cause problems when using Firefox containers
+  default_http_headers:
+    X-Content-Type-Options: nosniff
+    X-Download-Options: noopen
+    X-Robots-Tag: noindex, nofollow
+    Referrer-Policy: no-referrer
+
+redis:
+  url: false
+
+ui:
+  # Automatically loads the next page when scrolling to bottom of the current page.
+  infinite_scroll: true
+  # Hotkeys: default or vim
+  hotkeys: default
+  # UI theme
+  default_theme: simple
+  theme_args:
+    simple_style: dark
+
+outgoing: # communication with search engines
+  # Default timeout in seconds, can be override by engine
+  request_timeout: 5.0
+  # Suffix of searx_useragent, could contain information like an email address to the administrator
+  useragent_suffix: ""
+  # Maximum number of concurrent connections that may be established
+  pool_connections: 100
+  # Allow the connection pool to maintain keep-alive connections below this point
+  pool_maxsize: 20
+  # See https://www.python-httpx.org/http2/
+  enable_http2: true
+
+enabled_plugins:
+  - "HTTPS rewrite"
+  - "Self Information"
+  - "Tracker URL remover"
+  - "Basic Calculator"
+
+checker:
+  # disable checker when in debug mode
+  off_when_debug: true
+  additional_tests:
+    rosebud: &test_rosebud
+      matrix:
+        query: rosebud
+        lang: en
+      result_container:
+        - not_empty
+        - ["one_title_contains", "citizen kane"]
+      test:
+        - unique_results
+    android: &test_android
+      matrix:
+        query: ["android"]
+        lang: ["en", "de", "fr", "zh-CN"]
+      result_container:
+        - not_empty
+        - ["one_title_contains", "google"]
+      test:
+        - unique_results
+  # tests: only for the YAML anchors (see the engines section)
+  tests:
+    infobox: &tests_infobox
+      infobox:
+        matrix:
+          query: ["linux", "new york", "bbc"]
+        result_container:
+          - has_infobox
+
+engines:
+  - name: alpine linux packages
+    disabled: false
+    engine: alpinelinux
+    shortcut: alp
+
+  - name: arch linux wiki
+    disabled: false
+    engine: archlinux
+    shortcut: al
+
+  - name: arxiv
+    disabled: false
+    engine: arxiv
+    shortcut: arx
+    categories: science
+    timeout: 4.0
+
+  - name: wikipedia
+    disabled: false
+    engine: wikipedia
+    shortcut: wp
+    # add "list" to the array to get results in the results list
+    display_type: ["infobox"]
+    base_url: 'https://{language}.wikipedia.org/'
+    categories: [general]
+
+  - name : bing
+    disabled: false
+    engine : bing
+    shortcut : bi
+
+  - name : bing images
+    disabled: false
+    engine : bing_images
+    shortcut : bii
+
+  - name : bing news
+    disabled: false
+    engine : bing_news
+    shortcut : bin
+
+  - name : bing videos
+    disabled: false
+    engine : bing_videos
+    shortcut : biv
+
+  - name: bitbucket
+    disabled: false
+    engine: xpath
+    paging: true
+    search_url: https://bitbucket.org/repo/all/{pageno}?name={query}
+    url_xpath: //article[@class="repo-summary"]//a[@class="repo-link"]/@href
+    title_xpath: //article[@class="repo-summary"]//a[@class="repo-link"]
+    content_xpath: //article[@class="repo-summary"]/p
+    categories: [it, repos]
+    timeout: 4.0
+    shortcut: bb
+    about:
+      website: https://bitbucket.org/
+      wikidata_id: Q2493781
+      official_api_documentation: https://developer.atlassian.com/bitbucket
+      use_official_api: false
+      require_api_key: false
+      results: HTML
+
+  - name: media.ccc.de
+    disabled: false
+    engine: ccc_media
+    shortcut: c3tv
+
+  - name: crossref
+    disabled: false
+    engine: crossref
+    shortcut: cr
+    timeout: 30
+
+  - name: currency
+    disabled: false
+    engine: currency_convert
+    categories: general
+    shortcut: cc
+
+  - name: docker hub
+    disabled: false
+    engine: docker_hub
+    shortcut: dh
+    categories: [it, packages]
+
+  - name: wikidata
+    disabled: false
+    engine: wikidata
+    shortcut: wd
+    timeout: 3.0
+    weight: 2
+    # add "list" to the array to get results in the results list
+    display_type: ["infobox"]
+    tests: *tests_infobox
+    categories: [general]
+
+  - name: duckduckgo
+    disabled: false
+    engine: duckduckgo
+    shortcut: d
+
+  - name: duckduckgo images
+    disabled: false
+    engine: duckduckgo_extra
+    categories: [images, web]
+    ddg_category: images
+    shortcut: ddi
+
+  - name: duckduckgo videos
+    disabled: false
+    engine: duckduckgo_extra
+    categories: [videos, web]
+    ddg_category: videos
+    shortcut: ddv
+
+  - name: duckduckgo news
+    disabled: false
+    engine: duckduckgo_extra
+    categories: [news, web]
+    ddg_category: news
+    shortcut: ddn
+
+  - name: duckduckgo weather
+    disabled: false
+    engine: duckduckgo_weather
+    shortcut: ddw
+
+  - name: ddg definitions
+    disabled: false
+    engine: duckduckgo_definitions
+    shortcut: ddd
+    weight: 2
+    tests: *tests_infobox
+
+  - name: fdroid
+    disabled: false
+    engine: fdroid
+    shortcut: fd
+
+  - name: gitlab
+    disabled: false
+    engine: gitlab
+    base_url: https://gitlab.com
+    shortcut: gl
+    about:
+      website: https://gitlab.com/
+      wikidata_id: Q16639197
+
+  - name: github
+    disabled: false
+    engine: github
+    shortcut: gh
+
+  - name: codeberg
+    disabled: false
+    # https://docs.searxng.org/dev/engines/online/gitea.html
+    engine: gitea
+    base_url: https://codeberg.org
+    shortcut: cb
+
+  - name: gitea.com
+    disabled: false
+    engine: gitea
+    base_url: https://gitea.com
+    shortcut: gitea
+
+  - name: google
+    disabled: false
+    engine: google
+    shortcut: go
+
+  - name: google images
+    disabled: false
+    engine: google_images
+    shortcut: goi
+
+  - name: google news
+    disabled: false
+    engine: google_news
+    shortcut: gon
+
+  - name: google videos
+    disabled: false
+    engine: google_videos
+    shortcut: gv
+
+  - name: google scholar
+    disabled: false
+    engine: google_scholar
+    shortcut: gs
+
+  - name : imdb
+    disabled: false
+    engine : imdb
+    shortcut : imdb
+    timeout : 6.0
+
+  - name: invidious
+    disabled: false
+    engine: invidious
+    # Instances will be selected randomly, see https://api.invidious.io/ for
+    # instances that are stable (good uptime) and close to you.
+    base_url:
+      - https://invidious.io.lol
+      - https://invidious.fdn.fr
+      - https://yt.artemislena.eu
+      - https://invidious.tiekoetter.com
+      - https://invidious.flokinet.to
+      - https://vid.puffyan.us
+      - https://invidious.privacydev.net
+      - https://inv.tux.pizza
+    shortcut: iv
+    timeout: 3.0
+
+  - name: lemmy communities
+    disabled: false
+    engine: lemmy
+    lemmy_type: Communities
+    shortcut: leco
+
+  - name: lemmy users
+    disabled: false
+    engine: lemmy
+    network: lemmy communities
+    lemmy_type: Users
+    shortcut: leus
+
+  - name: lemmy posts
+    disabled: false
+    engine: lemmy
+    network: lemmy communities
+    lemmy_type: Posts
+    shortcut: lepo
+
+  - name: lemmy comments
+    disabled: false
+    engine: lemmy
+    network: lemmy communities
+    lemmy_type: Comments
+    shortcut: lecom
+
+  - name: library genesis
+    disabled: false
+    engine: xpath
+    # search_url: https://libgen.is/search.php?req={query}
+    search_url: https://libgen.rs/search.php?req={query}
+    url_xpath: //a[contains(@href,"book/index.php?md5")]/@href
+    title_xpath: //a[contains(@href,"book/")]/text()[1]
+    content_xpath: //td/a[1][contains(@href,"=author")]/text()
+    categories: files
+    timeout: 7.0
+    shortcut: lg
+    about:
+      website: https://libgen.fun/
+      wikidata_id: Q22017206
+      official_api_documentation:
+      use_official_api: false
+      require_api_key: false
+      results: HTML
+
+  - name: lobste.rs
+    disabled: false
+    engine: xpath
+    search_url: https://lobste.rs/search?q={query}&what=stories&order=relevance
+    results_xpath: //li[contains(@class, "story")]
+    url_xpath: .//a[@class="u-url"]/@href
+    title_xpath: .//a[@class="u-url"]
+    content_xpath: .//a[@class="domain"]
+    categories: it
+    shortcut: lo
+    timeout: 5.0
+    about:
+      website: https://lobste.rs/
+      wikidata_id: Q60762874
+      official_api_documentation:
+      use_official_api: false
+      require_api_key: false
+      results: HTML
+
+  - name: mankier
+    disabled: false
+    engine: json_engine
+    search_url: https://www.mankier.com/api/v2/mans/?q={query}
+    results_query: results
+    url_query: url
+    title_query: name
+    content_query: description
+    categories: it
+    shortcut: man
+    about:
+      website: https://www.mankier.com/
+      official_api_documentation: https://www.mankier.com/api
+      use_official_api: true
+      require_api_key: false
+      results: JSON
+
+  - name: openstreetmap
+    disabled: false
+    engine: openstreetmap
+    shortcut: osm
+
+  - name: pubmed
+    disabled: false
+    engine: pubmed
+    shortcut: pub
+    timeout: 3.0
+
+  - name: pypi
+    disabled: false
+    shortcut: pypi
+    engine: pypi
+
+  - name: qwant
+    disabled: false
+    qwant_categ: web
+    engine: qwant
+    shortcut: qw
+    categories: [general, web]
+    additional_tests:
+      rosebud: *test_rosebud
+
+  - name: qwant news
+    disabled: false
+    qwant_categ: news
+    engine: qwant
+    shortcut: qwn
+    categories: news
+    network: qwant
+
+  - name: qwant images
+    disabled: false
+    qwant_categ: images
+    engine: qwant
+    shortcut: qwi
+    categories: [images, web]
+    network: qwant
+
+  - name: qwant videos
+    disabled: false
+    qwant_categ: videos
+    engine: qwant
+    shortcut: qwv
+    categories: [videos, web]
+    network: qwant
+
+  - name: reddit
+    disabled: false
+    engine: reddit
+    shortcut: re
+    page_size: 25
+    timeout: 10.0
+
+  - name: sepiasearch
+    disabled: false
+    engine: sepiasearch
+    shortcut: sep
+
+  - name: stackoverflow
+    disabled: false
+    engine: stackexchange
+    shortcut: st
+    api_site: 'stackoverflow'
+    categories: [it, q&a]
+
+  - name: askubuntu
+    disabled: false
+    engine: stackexchange
+    shortcut: ubuntu
+    api_site: 'askubuntu'
+    categories: it
+
+  - name: superuser
+    disabled: false
+    engine: stackexchange
+    shortcut: su
+    api_site: 'superuser'
+    categories: it
+
+  - name: startpage
+    disabled: false
+    engine: startpage
+    shortcut: sp
+    timeout: 6.0
+    additional_tests:
+      rosebud: *test_rosebud
+
+  - name: tagesschau
+    disabled: false
+    engine: tagesschau
+    # when set to false, display URLs from Tagesschau, and not the actual source
+    # (e.g. NDR, WDR, SWR, HR, ...)
+    use_source_url: true
+    shortcut: ts
+
+  - name: urbandictionary
+    disabled: true  # Too many errors
+    shortcut: ud
+    engine: xpath
+    search_url: https://www.urbandictionary.com/define.php?term={query}
+    url_xpath: //*[@class="word"]/@href
+    title_xpath: //*[@class="def-header"]
+    content_xpath: //*[@class="meaning"]
+
+  - name: yahoo
+    disabled: false
+    engine: yahoo
+    shortcut: yh
+
+  - name: yahoo news
+    disabled: false
+    engine: yahoo_news
+    shortcut: yhn
+
+  - name: youtube
+    disabled: false
+    shortcut: yt
+    engine: youtube_noapi
+
+  - name: dailymotion
+    disabled: false
+    engine: dailymotion
+    shortcut: dm
+
+  - name: vimeo
+    disabled: false
+    engine: vimeo
+    shortcut: vm
+
+  - name: wiby
+    disabled: false
+    engine: json_engine
+    paging: true
+    search_url: https://wiby.me/json/?q={query}&p={pageno}
+    url_query: URL
+    title_query: Title
+    content_query: Snippet
+    categories: [general, web]
+    shortcut: wib
+    about:
+      website: https://wiby.me/
+
+  - name: wikibooks
+    disabled: false
+    engine: mediawiki
+    shortcut: wb
+    categories: general
+    base_url: "https://{language}.wikibooks.org/"
+    number_of_results: 5
+    search_type: text
+    about:
+      website: https://www.wikibooks.org/
+      wikidata_id: Q367
+
+  - name: wikinews
+    disabled: false
+    engine: mediawiki
+    shortcut: wn
+    categories: news
+    base_url: "https://{language}.wikinews.org/"
+    number_of_results: 5
+    search_type: text
+    about:
+      website: https://www.wikinews.org/
+      wikidata_id: Q964
+
+  - name: wikiquote
+    disabled: false
+    engine: mediawiki
+    shortcut: wq
+    categories: general
+    base_url: "https://{language}.wikiquote.org/"
+    number_of_results: 5
+    search_type: text
+    additional_tests:
+      rosebud: *test_rosebud
+    about:
+      website: https://www.wikiquote.org/
+      wikidata_id: Q369
+
+  - name: wikisource
+    disabled: false
+    engine: mediawiki
+    shortcut: ws
+    categories: general
+    base_url: "https://{language}.wikisource.org/"
+    number_of_results: 5
+    search_type: text
+    about:
+      website: https://www.wikisource.org/
+      wikidata_id: Q263
+
+  - name: wiktionary
+    disabled: false
+    engine: mediawiki
+    shortcut: wt
+    categories: general
+    base_url: "https://{language}.wiktionary.org/"
+    number_of_results: 5
+    search_type: text
+    about:
+      website: https://www.wiktionary.org/
+      wikidata_id: Q151
+
+  - name: wikiversity
+    disabled: true
+    engine: mediawiki
+    shortcut: wv
+    categories: general
+    base_url: "https://{language}.wikiversity.org/"
+    number_of_results: 5
+    search_type: text
+    about:
+      website: https://www.wikiversity.org/
+      wikidata_id: Q370
+
+  - name: wikivoyage
+    disabled: true
+    engine: mediawiki
+    shortcut: wy
+    categories: general
+    base_url: "https://{language}.wikivoyage.org/"
+    number_of_results: 5
+    search_type: text
+    about:
+      website: https://www.wikivoyage.org/
+      wikidata_id: Q373
+
+  - name: wolframalpha
+    disabled: true
+    shortcut: wa
+    # You can use the engine using the official stable API, but you need an API key
+    # See: https://products.wolframalpha.com/api/
+    # engine: wolframalpha_api
+    # api_key: '' # required!
+    engine: wolframalpha_noapi
+    timeout: 6.0
+    categories: science
+
+  - name: dictzone
+    disabled: false
+    engine: dictzone
+    shortcut: dc
+
+  - name: duden
+    disabled: false
+    engine: duden
+    shortcut: du
+
+  - name: mojeek
+    disabled: true
+    shortcut: mjk
+    engine: xpath
+    paging: true
+    search_url: https://www.mojeek.com/search?q={query}&s={pageno}
+    results_xpath: /html/body//div[@class="results"]/ul[@class="results-standard"]/li
+    url_xpath: ./h2/a/@href
+    title_xpath: ./h2
+    content_xpath: ./p[@class="s"]
+    suggestion_xpath: /html/body//div[@class="top-info"]/p[@class="top-info spell"]/a
+    first_page_num: 0
+    page_size: 10
+    about:
+      website: https://www.mojeek.com/
+      wikidata_id: Q60747299
+      official_api_documentation: https://www.mojeek.com/services/api.html/
+      use_official_api: false
+      require_api_key: false
+      results: HTML
+
+  - name: ask
+    disabled: false
+    shortcut: ask
+    engine: xpath
+    timeout: 3.0
+    categories: general
+    paging: true
+    page_size: 10
+    search_url: https://www.ask.com/web?q={query}&qo=pagination&page={pageno}
+    title_xpath: //a[@class="PartialSearchResults-item-title-link result-link"]
+    url_xpath: //a[@class="PartialSearchResults-item-title-link result-link"]/@href
+    content_xpath: //p[@class="PartialSearchResults-item-abstract"]
+    suggestion_xpath: //span[@class="PartialRelatedSearch-item-link-text"]
+    about:
+      website: https://ask.com
+      wikidata_id: Q847564
+      use_official_api: false
+      require_api_key: false
+      results: HTML
+
+  - name: peertube
+    disabled: false
+    engine: peertube
+    shortcut: ptb
+    paging: true
+    # https://instances.joinpeertube.org/instances
+    base_url: https://peertube.biz/
+    # base_url: https://tube.tardis.world/
+    categories: videos
+    timeout: 6.0
+
+  - name: rumble
+    disabled: false
+    engine: rumble
+    shortcut: ru
+    base_url: https://rumble.com/
+    paging: true
+    categories: videos
+
+  - name: wikimini
+    engine: xpath
+    shortcut: wkmn
+    search_url: https://fr.wikimini.org/w/index.php?search={query}&title=Sp%C3%A9cial%3ASearch&fulltext=Search
+    url_xpath: //li/div[@class="mw-search-result-heading"]/a/@href
+    title_xpath: //li//div[@class="mw-search-result-heading"]/a
+    content_xpath: //li/div[@class="searchresult"]
+    categories: general
+    disabled: true
+    about:
+      website: https://wikimini.org/
+      wikidata_id: Q3568032
+      use_official_api: false
+      require_api_key: false
+      results: HTML
+
+  - name: brave
+    disabled: false
+    engine: brave
+    shortcut: br
+    time_range_support: true
+    paging: true
+    categories: [general, web]
+    brave_category: search
+    # brave_spellcheck: true
+
+  - name: brave.images
+    disabled: false
+    engine: brave
+    network: brave
+    shortcut: brimg
+    categories: [images, web]
+    brave_category: images
+
+  - name: brave.videos
+    disabled: false
+    engine: brave
+    network: brave
+    shortcut: brvid
+    categories: [videos, web]
+    brave_category: videos
+
+  - name: brave.news
+    disabled: false
+    engine: brave
+    network: brave
+    shortcut: brnews
+    categories: news
+    brave_category: news
+
+locales:
+  en: English
+  ar: العَرَبِيَّة (Arabic)
+  bg: Български (Bulgarian)
+  bo: བོད་སྐད་ (Tibetian)
+  ca: Català (Catalan)
+  cs: Čeština (Czech)
+  cy: Cymraeg (Welsh)
+  da: Dansk (Danish)
+  de: Deutsch (German)
+  el_GR: Ελληνικά (Greek_Greece)
+  eo: Esperanto (Esperanto)
+  es: Español (Spanish)
+  et: Eesti (Estonian)
+  eu: Euskara (Basque)
+  fa_IR: (fārsī) فارسى (Persian)
+  fi: Suomi (Finnish)
+  fil: Wikang Filipino (Filipino)
+  fr: Français (French)
+  gl: Galego (Galician)
+  he: עברית (Hebrew)
+  hr: Hrvatski (Croatian)
+  hu: Magyar (Hungarian)
+  ia: Interlingua (Interlingua)
+  it: Italiano (Italian)
+  ja: 日本語 (Japanese)
+  lt: Lietuvių (Lithuanian)
+  nl: Nederlands (Dutch)
+  nl_BE: Vlaams (Dutch_Belgium)
+  oc: Lenga D'òc (Occitan)
+  pl: Polski (Polish)
+  pt: Português (Portuguese)
+  pt_BR: Português (Portuguese_Brazil)
+  ro: Română (Romanian)
+  ru: Русский (Russian)
+  sk: Slovenčina (Slovak)
+  sl: Slovenski (Slovene)
+  sr: српски (Serbian)
+  sv: Svenska (Swedish)
+  te: తెలుగు (telugu)
+  ta: தமிழ் (Tamil)
+  tr: Türkçe (Turkish)
+  uk: українська мова (Ukrainian)
+  vi: tiếng việt (Vietnamese)
+  zh: 中文 (Chinese)
+  zh_TW: 國語 (Taiwanese Mandarin)
+
+doi_resolvers:
+  oadoi.org: "https://oadoi.org/"
+  doi.org: "https://doi.org/"
+  doai.io: "https://dissem.in/"
+  sci-hub.se: "https://sci-hub.se/"
+  sci-hub.do: "https://sci-hub.do/"
+  scihubtw.tw: "https://scihubtw.tw/"
+  sci-hub.st: "https://sci-hub.st/"
+  sci-hub.bar: "https://sci-hub.bar/"
+  sci-hub.it.nf: "https://sci-hub.it.nf/"
+
+default_doi_resolver: "oadoi.org"

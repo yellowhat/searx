@@ -1,0 +1,19 @@
+name: Delete container versions
+
+on:
+  schedule:
+    - cron: '0 6 * * 1'
+  workflow_dispatch:
+
+jobs:
+  del_container:
+    name: Delete container versions
+    runs-on: ubuntu-latest
+    steps:
+      - name: Delete untagged
+        uses: actions/delete-package-versions@v5.0.0
+        with: 
+          package-name: searx
+          package-type: container
+          min-versions-to-keep: 10
+          delete-only-untagged-versions: 'true'
