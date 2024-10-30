@@ -1,9 +1,5 @@
 FROM docker.io/alpine:3.20.3
 
-EXPOSE 8080
-VOLUME /etc/searxng
-VOLUME /var/log/uwsgi
-
 ENV INSTANCE_NAME=searxng \
     SEARXNG_SETTINGS_PATH=/etc/searxng/settings.yml \
     UWSGI_SETTINGS_PATH=/etc/searxng/uwsgi.ini \
@@ -12,6 +8,8 @@ ENV INSTANCE_NAME=searxng \
 WORKDIR $CWD
 
 RUN adduser -u 977 -D -h "$CWD" -s /bin/sh searxng
+
+COPY patch /tmp/
 
 RUN apk add --no-cache --virtual build-dependencies \
         build-base \
@@ -37,9 +35,10 @@ RUN apk add --no-cache --virtual build-dependencies \
  && git clone --depth 1 https://github.com/searxng/searxng . \
  && chown -R searxng:searxng . \
  && git config --global --add safe.directory "$CWD" \
+ && git apply /tmp/*.patch \
  && pip3 install --break-system-packages --no-cache --requirement requirements.txt \
  && apk del build-dependencies \
- && rm -rf /root/.cache
+ && rm -rf /root/.cache /tmp/*
 
 COPY settings.yml /etc/searxng/settings.yml
 COPY uwsgi.ini uwsgi.ini
