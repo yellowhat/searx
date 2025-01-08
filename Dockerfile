@@ -1,4 +1,4 @@
-FROM docker.io/alpine:3.21.1
+FROM docker.io/alpine:3.21.2
 
 ENV CWD=/usr/local/searxng
 ENV SEARXNG_SETTINGS_PATH=${CWD}/settings.yml
