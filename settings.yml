@@ -112,6 +112,14 @@ engines:
     engine: archlinux
     shortcut: al
 
+  - name: nixos wiki
+    disabled: false
+    engine: mediawiki
+    shortcut: nixw
+    base_url: https://wiki.nixos.org/
+    search_type: text
+    categories: [it, software wikis]
+
   - name: arxiv
     disabled: false
     engine: arxiv
@@ -119,13 +127,17 @@ engines:
     categories: science
     timeout: 4.0
 
+  - name: ask
+    disabled: true
+    engine: ask
+    shortcut: ask
+
   - name: wikipedia
     disabled: false
     engine: wikipedia
     shortcut: wp
     # add "list" to the array to get results in the results list
     display_type: ["infobox"]
-    base_url: 'https://{language}.wikipedia.org/'
     categories: [general]
 
   - name : bing
@@ -670,26 +682,6 @@ engines:
       website: https://www.mojeek.com/
       wikidata_id: Q60747299
       official_api_documentation: https://www.mojeek.com/services/api.html/
-      use_official_api: false
-      require_api_key: false
-      results: HTML
-
-  - name: ask
-    disabled: false
-    shortcut: ask
-    engine: xpath
-    timeout: 3.0
-    categories: general
-    paging: true
-    page_size: 10
-    search_url: https://www.ask.com/web?q={query}&qo=pagination&page={pageno}
-    title_xpath: //a[@class="PartialSearchResults-item-title-link result-link"]
-    url_xpath: //a[@class="PartialSearchResults-item-title-link result-link"]/@href
-    content_xpath: //p[@class="PartialSearchResults-item-abstract"]
-    suggestion_xpath: //span[@class="PartialRelatedSearch-item-link-text"]
-    about:
-      website: https://ask.com
-      wikidata_id: Q847564
       use_official_api: false
       require_api_key: false
       results: HTML
