@@ -1,3 +1,4 @@
+---
 general:
   # Debug mode, only for development. Is overwritten by ${SEARXNG_DEBUG}
   debug: false
@@ -133,33 +134,6 @@ categories_as_tabs:
   social media:
 
 engines:
-  - name: alpine linux packages
-    disabled: false
-    categories: [it, packages]
-    engine: alpinelinux
-    shortcut: alp
-
-  - name: arch linux wiki
-    disabled: false
-    categories: [it]
-    engine: archlinux
-    shortcut: al
-
-  - name: nixos wiki
-    disabled: false
-    engine: mediawiki
-    shortcut: nixw
-    base_url: https://wiki.nixos.org/
-    search_type: text
-    categories: [it]
-
-  - name: arxiv
-    disabled: false
-    engine: arxiv
-    shortcut: arx
-    categories: science
-    timeout: 4.0
-
   - name: wikipedia
     disabled: false
     engine: wikipedia
@@ -168,55 +142,25 @@ engines:
     display_type: ["infobox"]
     categories: [general]
 
-  - name : bing
+  - name: bing
     disabled: false
-    engine : bing
-    shortcut : bi
+    engine: bing
+    shortcut: bi
 
-  - name : bing images
+  - name: bing images
     disabled: false
-    engine : bing_images
-    shortcut : bii
+    engine: bing_images
+    shortcut: bii
 
-  - name : bing news
+  - name: bing news
     disabled: false
-    engine : bing_news
-    shortcut : bin
+    engine: bing_news
+    shortcut: bin
 
-  - name : bing videos
+  - name: bing videos
     disabled: false
-    engine : bing_videos
-    shortcut : biv
-
-  - name: bitbucket
-    disabled: false
-    engine: xpath
-    paging: true
-    search_url: https://bitbucket.org/repo/all/{pageno}?name={query}
-    url_xpath: //article[@class="repo-summary"]//a[@class="repo-link"]/@href
-    title_xpath: //article[@class="repo-summary"]//a[@class="repo-link"]
-    content_xpath: //article[@class="repo-summary"]/p
-    categories: [it, repos]
-    timeout: 4.0
-    shortcut: bb
-    about:
-      website: https://bitbucket.org/
-      wikidata_id: Q2493781
-      official_api_documentation: https://developer.atlassian.com/bitbucket
-      use_official_api: false
-      require_api_key: false
-      results: HTML
-
-  - name: media.ccc.de
-    disabled: false
-    engine: ccc_media
-    shortcut: c3tv
-
-  - name: crossref
-    disabled: false
-    engine: crossref
-    shortcut: cr
-    timeout: 30
+    engine: bing_videos
+    shortcut: biv
 
   - name: currency
     disabled: false
