@@ -216,17 +216,12 @@ engines:
     engine: duckduckgo_weather
     shortcut: ddw
 
-  - name: ddg definitions
+  - name: duckduckgo definitions
     disabled: false
     engine: duckduckgo_definitions
     shortcut: ddd
     weight: 2
     tests: *tests_infobox
-
-  - name: fdroid
-    disabled: false
-    engine: fdroid
-    shortcut: fd
 
   - name: gitlab
     disabled: false
@@ -244,7 +239,6 @@ engines:
 
   - name: codeberg
     disabled: false
-    # https://docs.searxng.org/dev/engines/online/gitea.html
     engine: gitea
     base_url: https://codeberg.org
     shortcut: cb
@@ -447,20 +441,6 @@ engines:
     api_site: 'stackoverflow'
     categories: [it, q&a]
 
-  - name: askubuntu
-    disabled: false
-    engine: stackexchange
-    shortcut: ubuntu
-    api_site: 'askubuntu'
-    categories: it
-
-  - name: superuser
-    disabled: false
-    engine: stackexchange
-    shortcut: su
-    api_site: 'superuser'
-    categories: it
-
   - name: startpage
     disabled: false
     engine: startpage
@@ -468,14 +448,6 @@ engines:
     timeout: 6.0
     additional_tests:
       rosebud: *test_rosebud
-
-  - name: tagesschau
-    disabled: false
-    engine: tagesschau
-    # when set to false, display URLs from Tagesschau, and not the actual source
-    # (e.g. NDR, WDR, SWR, HR, ...)
-    use_source_url: true
-    shortcut: ts
 
   - name: urbandictionary
     disabled: true  # Too many errors
