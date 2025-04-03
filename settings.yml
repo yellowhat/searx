@@ -83,12 +83,25 @@ outgoing: # communication with search engines
   # See https://www.python-httpx.org/http2/
   enable_http2: true
 
-enabled_plugins:
-  - "Basic Calculator"
-  - "Hash plugin"
-  - "Self Information"
-  - "Tracker URL remover"
-  - "Unit converter plugin"
+plugins:
+  searx.plugins.calculator.SXNGPlugin:
+    active: true
+  searx.plugins.hash_plugin.SXNGPlugin:
+    active: true
+  searx.plugins.self_info.SXNGPlugin:
+    active: true
+  searx.plugins.unit_converter.SXNGPlugin:
+    active: true
+  searx.plugins.ahmia_filter.SXNGPlugin:
+    active: false
+  searx.plugins.hostnames.SXNGPlugin:
+    active: false
+  searx.plugins.oa_doi_rewrite.SXNGPlugin:
+    active: false
+  searx.plugins.tor_check.SXNGPlugin:
+    active: false
+  searx.plugins.tracker_url_remover.SXNGPlugin:
+    active: true
 
 checker:
   # disable checker when in debug mode
