@@ -6,12 +6,11 @@ general:
   instance_name: SearXNG
   # For example: https://example.com/privacy
   privacypolicy_url: false
-  # use true to use your own donation page written in searx/info/en/donate.md
-  # use false to disable the donation link
-  donation_url: false 
+  # Enable/disable donation page written in searx/info/en/donate.md
+  donation_url: false
   # mailto:contact@example.com
   contact_url: false
-  # Record stats, available under /stats
+  # Enable/disable /stats and /metrics endpoint
   enable_metrics: true
 
 brand:
@@ -24,19 +23,41 @@ brand:
 search:
   # Filter results. 0: None, 1: Moderate, 2: Strict
   safe_search: 0
-  # Existing autocomplete backends: "dbpedia", "duckduckgo", "google", "startpage", "swisscows", "qwant", "wikipedia" - leave blank to turn it off by default
-  autocomplete: "duckduckgo"
+  # Existing autocomplete backends:
+  # "360search", "baidu", "brave", "dbpedia", "duckduckgo", "google", "yandex",
+  # "mwmbl", "seznam", "sogou", "stract", "swisscows", "quark", "qwant", "wikipedia"
+  # leave blank to turn it off by default.
+  autocomplete: duckduckgo
   # Minimum number of characters to type before autocompleter starts
   autocomplete_min: 4
+  # Available resolvers: "allesedv", "duckduckgo", "google", "yandex" - leave blank to turn it off by default.
+  favicon_resolver: ""
   # Default search language - leave blank to detect from browser information or use codes from 'languages.py'
-  default_lang: ""
+  default_lang: "auto"
   # Ban time in seconds after engine errors
   ban_time_on_fail: 5
   # Max ban time in seconds after engine errors
   max_ban_time_on_fail: 120
+  # Engine suspension time after error (in seconds; set to 0 to disable)
+  suspended_times:
+    # For error "Access denied" and "HTTP error [402, 403]"
+    SearxEngineAccessDenied: 86400
+    # For error "CAPTCHA"
+    SearxEngineCaptcha: 86400
+    # For error "Too many request" and "HTTP error 429"
+    SearxEngineTooManyRequests: 3600
+    # Cloudflare CAPTCHA
+    cf_SearxEngineCaptcha: 1296000
+    cf_SearxEngineAccessDenied: 86400
+    # ReCAPTCHA
+    recaptcha_SearxEngineCaptcha: 604800
+  # Results format [html, csv, json, rss]
+  formats:
+    - html
+    - json
 
 server:
-  port: 8888
+  port: 8080
   # Address to listen on
   bind_address: "127.0.0.1"
   secret_key: "ultrasecretkey" # change this!
@@ -104,7 +125,7 @@ plugins:
     active: true
 
 checker:
-  # disable checker when in debug mode
+  # Disable checker when in debug mode
   off_when_debug: true
   additional_tests:
     rosebud: &test_rosebud
@@ -114,15 +135,6 @@ checker:
       result_container:
         - not_empty
         - ["one_title_contains", "citizen kane"]
-      test:
-        - unique_results
-    android: &test_android
-      matrix:
-        query: ["android"]
-        lang: ["en", "de", "fr", "zh-CN"]
-      result_container:
-        - not_empty
-        - ["one_title_contains", "google"]
       test:
         - unique_results
   # tests: only for the YAML anchors (see the engines section)
@@ -155,6 +167,17 @@ engines:
     display_type: ["infobox"]
     categories: [general]
 
+  - name: wikidata
+    disabled: false
+    engine: wikidata
+    shortcut: wd
+    # add "list" to the array to get results in the results list
+    display_type: ["infobox"]
+    tests: *tests_infobox
+    categories: [general]
+    timeout: 3.0
+    weight: 2
+
   - name: bing
     disabled: false
     engine: bing
@@ -186,17 +209,6 @@ engines:
     engine: docker_hub
     shortcut: dh
     categories: [it, packages]
-
-  - name: wikidata
-    disabled: false
-    engine: wikidata
-    shortcut: wd
-    timeout: 3.0
-    weight: 2
-    # add "list" to the array to get results in the results list
-    display_type: ["infobox"]
-    tests: *tests_infobox
-    categories: [general]
 
   - name: duckduckgo
     disabled: false
@@ -385,6 +397,31 @@ engines:
       use_official_api: true
       require_api_key: false
       results: JSON
+
+  - name: mullvadleta
+    disabled: false
+    engine: mullvad_leta
+    leta_engine: google
+    categories: [general, web]
+    shortcut: ml
+
+  - name: mullvadleta brave
+    disabled: false
+    engine: mullvad_leta
+    leta_engine: brave
+    network: mullvadleta  # use network from engine "mullvadleta" configured above
+    categories: [general, web]
+    shortcut: mlb
+
+  - name: odysee
+    disabled: false
+    engine: odysee
+    shortcut: od
+
+  - name: ollama
+    disabled: false
+    engine: ollama
+    shortcut: ollama
 
   - name: openstreetmap
     disabled: false
@@ -706,62 +743,12 @@ engines:
     categories: news
     brave_category: news
 
-locales:
-  en: English
-  ar: العَرَبِيَّة (Arabic)
-  bg: Български (Bulgarian)
-  bo: བོད་སྐད་ (Tibetian)
-  ca: Català (Catalan)
-  cs: Čeština (Czech)
-  cy: Cymraeg (Welsh)
-  da: Dansk (Danish)
-  de: Deutsch (German)
-  el_GR: Ελληνικά (Greek_Greece)
-  eo: Esperanto (Esperanto)
-  es: Español (Spanish)
-  et: Eesti (Estonian)
-  eu: Euskara (Basque)
-  fa_IR: (fārsī) فارسى (Persian)
-  fi: Suomi (Finnish)
-  fil: Wikang Filipino (Filipino)
-  fr: Français (French)
-  gl: Galego (Galician)
-  he: עברית (Hebrew)
-  hr: Hrvatski (Croatian)
-  hu: Magyar (Hungarian)
-  ia: Interlingua (Interlingua)
-  it: Italiano (Italian)
-  ja: 日本語 (Japanese)
-  lt: Lietuvių (Lithuanian)
-  nl: Nederlands (Dutch)
-  nl_BE: Vlaams (Dutch_Belgium)
-  oc: Lenga D'òc (Occitan)
-  pl: Polski (Polish)
-  pt: Português (Portuguese)
-  pt_BR: Português (Portuguese_Brazil)
-  ro: Română (Romanian)
-  ru: Русский (Russian)
-  sk: Slovenčina (Slovak)
-  sl: Slovenski (Slovene)
-  sr: српски (Serbian)
-  sv: Svenska (Swedish)
-  te: తెలుగు (telugu)
-  ta: தமிழ் (Tamil)
-  tr: Türkçe (Turkish)
-  uk: українська мова (Ukrainian)
-  vi: tiếng việt (Vietnamese)
-  zh: 中文 (Chinese)
-  zh_TW: 國語 (Taiwanese Mandarin)
-
 doi_resolvers:
-  oadoi.org: "https://oadoi.org/"
-  doi.org: "https://doi.org/"
-  doai.io: "https://dissem.in/"
-  sci-hub.se: "https://sci-hub.se/"
-  sci-hub.do: "https://sci-hub.do/"
-  scihubtw.tw: "https://scihubtw.tw/"
-  sci-hub.st: "https://sci-hub.st/"
-  sci-hub.bar: "https://sci-hub.bar/"
-  sci-hub.it.nf: "https://sci-hub.it.nf/"
+  oadoi.org: https://oadoi.org/
+  doi.org: https://doi.org/
+  doai.io: https://dissem.in/
+  sci-hub.se: https://sci-hub.se/
+  sci-hub.st: https://sci-hub.st/
+  sci-hub.ru: https://sci-hub.ru/
 
-default_doi_resolver: "oadoi.org"
+default_doi_resolver: oadoi.org
