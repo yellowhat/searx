@@ -1,4 +1,6 @@
-IMAGE         := searx:local
+POD_FILE := pod.yaml
+IMAGE    := searx:local
+
 .DEFAULT_GOAL := help
 
 .PHONY: build
@@ -6,14 +8,14 @@ build: ## Build container
 	@echo "[INFO] Entering $(IMAGE) container..."
 	podman build --tag "$(IMAGE)" .
 
+.PHONY: stop
+stop: ## Stop pod
+	podman kube play "$(POD_FILE)" --force --down
+
 .PHONY: run
-run: build ## Build and run  container
-	podman run \
-		--interactive \
-		--tty \
-		--rm \
-		--publish 8080:8080 \
-		"$(IMAGE)"
+run: build stop ## Build and run pod
+	podman kube play "$(POD_FILE)"
+	podman logs --follow searx-searx
 
 .PHONY: help
 help: ## Makefile Help Page

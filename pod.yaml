@@ -1,0 +1,23 @@
+---
+apiVersion: apps/v1
+kind: Pod
+metadata:
+  name: searx
+spec:
+  containers:
+    - name: searx
+      image: searx:local
+      env:
+        - name: SEARXNG_REDIS_URL
+          value: localhost
+        - name: SEARXNG_REDIS_URL
+          value: redis://localhost:6379
+      ports:
+        - name: http
+          containerPort: 8080
+          hostPort: 8080
+    - name: redis
+      image: docker.io/valkey/valkey:8.1.1
+      ports:
+        - name: redis
+          containerPort: 6379
