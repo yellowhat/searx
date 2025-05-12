@@ -9,9 +9,7 @@ spec:
       image: searx:local
       env:
         - name: SEARXNG_REDIS_URL
-          value: localhost
-        - name: SEARXNG_REDIS_URL
-          value: redis://localhost:6379
+          value: redis://localhost:6379/0
       ports:
         - name: http
           containerPort: 8080
