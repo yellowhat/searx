@@ -15,7 +15,7 @@ spec:
           containerPort: 8080
           hostPort: 8080
     - name: redis
-      image: docker.io/valkey/valkey:8.1.1
+      image: docker.io/valkey/valkey:8.1.2
       ports:
         - name: redis
           containerPort: 6379
