@@ -12,5 +12,17 @@ echo "[INFO] Change ultrasecretkey in $SEARXNG_SETTINGS_PATH"
 sed -e "s|ultrasecretkey|$(hexdump -n 32 -e '32/1 "%02x"' /dev/urandom)|g" \
     -i "$SEARXNG_SETTINGS_PATH"
 
-echo "[INFO] Starting uwsgi on port: $PORT"
-uwsgi --master --http-socket "0.0.0.0:$PORT" "$UWSGI_SETTINGS_PATH"
+echo "[INFO] Starting granian on port: $PORT"
+exec granian \
+    --process-name searxng \
+    --interface wsgi \
+    --no-ws \
+    --loop uvloop \
+    --blocking-threads 4 \
+    --blocking-threads-idle-timeout 300 \
+    --workers-kill-timeout 30 \
+    --static-path-mount "/usr/local/searxng/searx/static/" \
+    --static-path-expires 3600 \
+    --host "0.0.0.0" \
+    --port "$PORT" \
+    searx.webapp:app

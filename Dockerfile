@@ -1,8 +1,7 @@
-FROM docker.io/alpine:3.22.0
+FROM ghcr.io/astral-sh/uv:0.7.19-python3.13-alpine
 
 ENV CWD=/usr/local/searxng
 ENV SEARXNG_SETTINGS_PATH=${CWD}/settings.yml
-ENV UWSGI_SETTINGS_PATH=${CWD}/uwsgi.ini
 
 WORKDIR $CWD
 
@@ -14,20 +13,16 @@ RUN apk add --no-cache \
         brotli \
         ca-certificates \
         git \
-        py3-pip \
-        python3 \
-        uwsgi \
-        uwsgi-python3 \
  && git clone --depth 1 https://github.com/searxng/searxng . \
  && chown -R searxng:searxng . \
  && git config --global --add safe.directory "$CWD" \
  && git apply /tmp/*.patch \
- && pip3 install --break-system-packages --no-cache --requirement requirements.txt \
+ && uv pip install --system --no-cache --requirement requirements.txt \
+ && uv pip install --system --no-cache granian==2.4.1 \
  && rm -rf /root/.cache /tmp/*
 
 COPY settings.yml $SEARXNG_SETTINGS_PATH
-COPY uwsgi.ini $UWSGI_SETTINGS_PATH
-COPY docker-entrypoint.sh ./
+COPY --chmod=755 docker-entrypoint.sh ./
 
 RUN python3 -m compileall -q searx \
  && find searx/static -a \( -name "*.html" -o -name "*.css" -o -name "*.js" \
