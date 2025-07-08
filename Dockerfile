@@ -5,8 +5,6 @@ ENV SEARXNG_SETTINGS_PATH=${CWD}/settings.yml
 
 WORKDIR $CWD
 
-RUN adduser -u 977 -D -h "$CWD" -s /bin/sh searxng
-
 COPY patch /tmp/
 
 RUN apk add --no-cache \
@@ -14,7 +12,6 @@ RUN apk add --no-cache \
         ca-certificates \
         git \
  && git clone --depth 1 https://github.com/searxng/searxng . \
- && chown -R searxng:searxng . \
  && git config --global --add safe.directory "$CWD" \
  && git apply /tmp/*.patch \
  && uv pip install --system --no-cache --requirement requirements.txt \
@@ -25,8 +22,13 @@ COPY settings.yml $SEARXNG_SETTINGS_PATH
 COPY --chmod=755 docker-entrypoint.sh ./
 
 RUN python3 -m compileall -q searx \
- && find searx/static -a \( -name "*.html" -o -name "*.css" -o -name "*.js" \
-        -o -name "*.svg" -o -name "*.ttf" -o -name "*.eot" \) \
-        -type f -exec gzip -9 -k {} \+ -exec brotli --best {} \+
+ && find searx/static -a \( \
+        -name "*.html" -o \
+        -name "*.css" -o \
+        -name "*.js" -o \
+        -name "*.svg" -o \
+        -name "*.ttf" -o \
+        -name "*.eot" \
+    \) -type f -exec gzip -9 -k {} \+ -exec brotli --best {} \+
 
 ENTRYPOINT ["/usr/local/searxng/docker-entrypoint.sh"]
