@@ -14,8 +14,8 @@ RUN apk add --no-cache \
  && git clone --depth 1 https://github.com/searxng/searxng . \
  && git config --global --add safe.directory "$CWD" \
  && git apply /tmp/*.patch \
- && uv pip install --system --no-cache --requirement requirements.txt \
- && uv pip install --system --no-cache granian==2.4.1 \
+ && uv pip install --requirement requirements.txt --system --no-cache \
+ && uv pip install granian==2.4.1 --system --no-cache \
  && rm -rf /root/.cache /tmp/*
 
 COPY settings.yml $SEARXNG_SETTINGS_PATH
