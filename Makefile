@@ -5,7 +5,6 @@ IMAGE    := searx:local
 
 .PHONY: build
 build: ## Build container
-	@echo "[INFO] Entering $(IMAGE) container..."
 	podman build --tag "$(IMAGE)" .
 
 .PHONY: stop
