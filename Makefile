@@ -1,5 +1,5 @@
-POD_FILE := pod.yaml
 IMAGE    := searx:local
+POD_FILE := searx.yaml
 
 .DEFAULT_GOAL := help
 
@@ -9,11 +9,11 @@ build: ## Build container
 
 .PHONY: stop
 stop: ## Stop pod
-	podman kube play "$(POD_FILE)" --force --down
+	(cd local && podman kube play "$(POD_FILE)" --force --down)
 
 .PHONY: run
 run: build stop ## Build and run pod
-	podman kube play "$(POD_FILE)"
+	(cd local && podman kube play "$(POD_FILE)")
 	podman logs --follow searx-searx
 
 .PHONY: help

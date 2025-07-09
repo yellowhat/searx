@@ -1,0 +1,418 @@
+{
+   "description": "Metrics from SearxNG",
+   "editable": true,
+   "graphTooltip": 1,
+   "panels": [
+      {
+         "collapsed": false,
+         "gridPos": {
+            "h": 1,
+            "w": 24,
+            "x": 0,
+            "y": 0
+         },
+         "id": 1,
+         "title": "Metrics",
+         "type": "row"
+      },
+      {
+         "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+         },
+         "fieldConfig": {
+            "defaults": {
+               "color": {
+                  "mode": "thresholds"
+               },
+               "thresholds": {
+                  "steps": [
+                     {
+                        "color": "red"
+                     },
+                     {
+                        "color": "orange",
+                        "value": 90
+                     },
+                     {
+                        "color": "yellow",
+                        "value": 95
+                     },
+                     {
+                        "color": "green",
+                        "value": 99
+                     }
+                  ]
+               },
+               "unit": "percent"
+            }
+         },
+         "gridPos": {
+            "h": 4,
+            "w": 24,
+            "x": 0,
+            "y": 1
+         },
+         "id": 2,
+         "options": {
+            "colorMode": "value",
+            "graphMode": "area"
+         },
+         "pluginVersion": "v11.4.0",
+         "targets": [
+            {
+               "datasource": {
+                  "type": "prometheus",
+                  "uid": ""
+               },
+               "expr": "min by (engine_name) (\n  searxng_engines_reliability_total{job=~\"$job\", pod=~\"$pod\"}\n)\n",
+               "legendFormat": "{{engine_name}}"
+            }
+         ],
+         "title": "Reliability",
+         "transparent": true,
+         "type": "stat"
+      },
+      {
+         "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+         },
+         "fieldConfig": {
+            "defaults": {
+               "custom": {
+                  "fillOpacity": 10
+               },
+               "unit": "s"
+            }
+         },
+         "gridPos": {
+            "h": 10,
+            "w": 24,
+            "x": 0,
+            "y": 5
+         },
+         "id": 3,
+         "options": {
+            "legend": {
+               "calcs": [
+                  "lastNotNull",
+                  "min",
+                  "mean",
+                  "max"
+               ],
+               "displayMode": "table",
+               "placement": "right",
+               "sortBy": "Last *",
+               "sortDesc": true
+            }
+         },
+         "pluginVersion": "v11.4.0",
+         "targets": [
+            {
+               "datasource": {
+                  "type": "prometheus",
+                  "uid": ""
+               },
+               "expr": "max by (engine_name) (\n  searxng_engines_response_time_total_seconds{job=~\"$job\", pod=~\"$pod\"}\n)\n",
+               "legendFormat": "{{engine_name}}"
+            }
+         ],
+         "title": "Response time",
+         "transparent": true,
+         "type": "timeseries"
+      },
+      {
+         "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+         },
+         "fieldConfig": {
+            "defaults": {
+               "custom": {
+                  "fillOpacity": 10
+               },
+               "unit": "s"
+            }
+         },
+         "gridPos": {
+            "h": 10,
+            "w": 12,
+            "x": 0,
+            "y": 15
+         },
+         "id": 4,
+         "options": {
+            "legend": {
+               "calcs": [
+                  "lastNotNull",
+                  "min",
+                  "mean",
+                  "max"
+               ],
+               "displayMode": "table",
+               "placement": "right",
+               "sortBy": "Last *",
+               "sortDesc": true
+            }
+         },
+         "pluginVersion": "v11.4.0",
+         "targets": [
+            {
+               "datasource": {
+                  "type": "prometheus",
+                  "uid": ""
+               },
+               "expr": "max by (engine_name) (\n  searxng_engines_response_time_http_seconds{job=~\"$job\", pod=~\"$pod\"}\n)\n",
+               "legendFormat": "{{engine_name}}"
+            }
+         ],
+         "title": "Response http time",
+         "transparent": true,
+         "type": "timeseries"
+      },
+      {
+         "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+         },
+         "fieldConfig": {
+            "defaults": {
+               "custom": {
+                  "fillOpacity": 10
+               },
+               "unit": "s"
+            }
+         },
+         "gridPos": {
+            "h": 10,
+            "w": 12,
+            "x": 12,
+            "y": 15
+         },
+         "id": 5,
+         "options": {
+            "legend": {
+               "calcs": [
+                  "lastNotNull",
+                  "min",
+                  "mean",
+                  "max"
+               ],
+               "displayMode": "table",
+               "placement": "right",
+               "sortBy": "Last *",
+               "sortDesc": true
+            }
+         },
+         "pluginVersion": "v11.4.0",
+         "targets": [
+            {
+               "datasource": {
+                  "type": "prometheus",
+                  "uid": ""
+               },
+               "expr": "max by (engine_name) (\n  searxng_engines_response_time_processing_seconds{job=~\"$job\", pod=~\"$pod\"}\n)\n",
+               "legendFormat": "{{engine_name}}"
+            }
+         ],
+         "title": "Response processing time",
+         "transparent": true,
+         "type": "timeseries"
+      },
+      {
+         "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+         },
+         "fieldConfig": {
+            "defaults": {
+               "custom": {
+                  "fillOpacity": 10
+               },
+               "unit": "none"
+            }
+         },
+         "gridPos": {
+            "h": 10,
+            "w": 12,
+            "x": 0,
+            "y": 25
+         },
+         "id": 6,
+         "options": {
+            "legend": {
+               "calcs": [
+                  "lastNotNull",
+                  "min",
+                  "mean",
+                  "max"
+               ],
+               "displayMode": "table",
+               "placement": "right",
+               "sortBy": "Last *",
+               "sortDesc": true
+            }
+         },
+         "pluginVersion": "v11.4.0",
+         "targets": [
+            {
+               "datasource": {
+                  "type": "prometheus",
+                  "uid": ""
+               },
+               "expr": "max by (engine_name) (\n  searxng_engines_request_count_total{job=~\"$job\", pod=~\"$pod\"}\n)\n",
+               "legendFormat": "{{engine_name}}"
+            }
+         ],
+         "title": "Request count",
+         "transparent": true,
+         "type": "timeseries"
+      },
+      {
+         "datasource": {
+            "type": "prometheus",
+            "uid": "$datasource"
+         },
+         "fieldConfig": {
+            "defaults": {
+               "custom": {
+                  "fillOpacity": 10
+               },
+               "unit": "none"
+            }
+         },
+         "gridPos": {
+            "h": 10,
+            "w": 12,
+            "x": 12,
+            "y": 25
+         },
+         "id": 7,
+         "options": {
+            "legend": {
+               "calcs": [
+                  "lastNotNull",
+                  "min",
+                  "mean",
+                  "max"
+               ],
+               "displayMode": "table",
+               "placement": "right",
+               "sortBy": "Last *",
+               "sortDesc": true
+            }
+         },
+         "pluginVersion": "v11.4.0",
+         "targets": [
+            {
+               "datasource": {
+                  "type": "prometheus",
+                  "uid": ""
+               },
+               "expr": "max by (engine_name) (\n  searxng_engines_result_count_total{job=~\"$job\", pod=~\"$pod\"}\n)\n",
+               "legendFormat": "{{engine_name}}"
+            }
+         ],
+         "title": "Result count",
+         "transparent": true,
+         "type": "timeseries"
+      },
+      {
+         "collapsed": false,
+         "gridPos": {
+            "h": 1,
+            "w": 24,
+            "x": 0,
+            "y": 26
+         },
+         "id": 8,
+         "title": "Logs",
+         "type": "row"
+      },
+      {
+         "datasource": {
+            "type": "loki",
+            "uid": "$datasource_loki"
+         },
+         "gridPos": {
+            "h": 12,
+            "w": 24,
+            "x": 0,
+            "y": 27
+         },
+         "id": 9,
+         "options": {
+            "sortOrder": "Descending"
+         },
+         "pluginVersion": "v11.4.0",
+         "targets": [
+            {
+               "datasource": {
+                  "type": "loki",
+                  "uid": ""
+               },
+               "expr": "{pod=~\"$pod\"}"
+            }
+         ],
+         "title": "Pod Logs",
+         "transparent": true,
+         "type": "logs"
+      }
+   ],
+   "refresh": "30s",
+   "schemaVersion": 39,
+   "tags": [
+      "searx"
+   ],
+   "templating": {
+      "list": [
+         {
+            "label": "Datasource",
+            "name": "datasource",
+            "query": "prometheus",
+            "type": "datasource"
+         },
+         {
+            "label": "Datasource Loki",
+            "name": "datasource_loki",
+            "query": "loki",
+            "type": "datasource"
+         },
+         {
+            "datasource": {
+               "type": "prometheus",
+               "uid": "${datasource}"
+            },
+            "includeAll": true,
+            "label": "Job",
+            "multi": true,
+            "name": "job",
+            "query": "label_values(searxng_engines_reliability_total, job)",
+            "refresh": 2,
+            "sort": true,
+            "type": "query"
+         },
+         {
+            "datasource": {
+               "type": "prometheus",
+               "uid": "${datasource}"
+            },
+            "includeAll": true,
+            "label": "Pod",
+            "multi": true,
+            "name": "pod",
+            "query": "label_values(searxng_engines_reliability_total, pod)",
+            "refresh": 2,
+            "sort": true,
+            "type": "query"
+         }
+      ]
+   },
+   "time": {
+      "from": "now-6h",
+      "to": "now"
+   },
+   "timezone": "browser",
+   "title": "Searx"
+}
