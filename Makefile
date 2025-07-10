@@ -12,9 +12,14 @@ stop: ## Stop pod
 	(cd local && podman kube play "$(POD_FILE)" --force --down)
 
 .PHONY: run
-run: build stop ## Build and run pod
+run: build stop ## Build, run pod and show searx logs
 	(cd local && podman kube play "$(POD_FILE)")
 	podman logs --follow searx-searx
+
+.PHONY: test
+test: build stop ## Build, run pod and test
+	(cd local && podman kube play "$(POD_FILE)")
+	curl http://localhost:8080
 
 .PHONY: help
 help: ## Makefile Help Page

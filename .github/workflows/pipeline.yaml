@@ -11,12 +11,12 @@ on:
     - cron: '0 1 * * *'
 
 jobs:
+  test:
+    uses: ./.github/workflows/00_test.yaml
+
   build:
-    uses: ./.github/workflows/00_build.yaml
+    uses: ./.github/workflows/01_build.yaml
+    needs: build
     permissions:
       contents: read  # Required to checkout
       packages: write # Required to push container image
-
-  test:
-    needs: build
-    uses: ./.github/workflows/01_test.yaml
