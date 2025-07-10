@@ -15,7 +15,7 @@ spec:
           containerPort: 8080
           hostPort: 8080
     - name: redis
-      image: docker.io/valkey/valkey:8.1.3
+      image: docker.io/valkey/valkey:8.1.2
       ports:
         - name: redis
           containerPort: 6379
@@ -34,6 +34,27 @@ spec:
         - name: prometheus
           mountPath: /etc/prometheus.yaml
           readOnly: true
+    - name: tempo
+      image: docker.io/grafana/tempo:2.8.1
+      args:
+        - -config.file=/etc/tempo.yaml
+      volumeMounts:
+        - name: tempo
+          mountPath: /etc/tempo.yaml
+          readOnly: true
+      ports:
+        - name: tempo
+          containerPort: 3200
+        - name: tempo-grpc
+          containerPort: 9095
+        - name: otlp-grpc
+          containerPort: 4317
+        - name: otlp-http
+          containerPort: 4318
+        - name: zipkin
+          containerPort: 9411
+        - name: jaeger-ingest
+          containerPort: 14268
     - name: grafana
       image: docker.io/grafana/grafana:12.0.2
       env:
@@ -44,6 +65,11 @@ spec:
           value: "true"
         - name: GF_AUTH_ANONYMOUS_ORG_ROLE
           value: "Admin"
+        # ?
+        - name: GF_FEATURE_TOGGLES_ENABLE
+          value: "traceqlEditor metricsSummary"
+        - name: GF_INSTALL_PLUGINS
+          value: "https://storage.googleapis.com/integration-artifacts/grafana-exploretraces-app/grafana-exploretraces-app-latest.zip;grafana-traces-app"
       ports:
         - name: http
           containerPort: 3000
@@ -56,6 +82,10 @@ spec:
     - name: prometheus
       hostPath:
         path: prometheus.yaml
+        type: File
+    - name: tempo
+      hostPath:
+        path: tempo.yaml
         type: File
     - name: grafana
       hostPath:
