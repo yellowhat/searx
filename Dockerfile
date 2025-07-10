@@ -5,17 +5,20 @@ ENV SEARXNG_SETTINGS_PATH=${CWD}/settings.yml
 
 WORKDIR $CWD
 
+COPY searxng $CWD
+COPY requirements.txt /tmp/
 COPY patch /tmp/
 
 RUN apk add --no-cache \
         brotli \
         ca-certificates \
         git \
- && git clone --depth 1 https://github.com/searxng/searxng . \
- && git config --global --add safe.directory "$CWD" \
  && git apply /tmp/*.patch \
- && uv pip install --requirement requirements.txt --system --no-cache \
- && uv pip install granian==2.4.1 --system --no-cache \
+ && uv pip install \
+        --system \
+        --no-cache \
+        --requirement requirements.txt \
+        --requirement /tmp/requirements.txt \
  && rm -rf /root/.cache /tmp/*
 
 COPY settings.yml $SEARXNG_SETTINGS_PATH
