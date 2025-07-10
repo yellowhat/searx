@@ -1,0 +1,48 @@
+diff --git a/searx/webapp.py b/searx/webapp.py
+index 15f79f1..a68a225 100755
+--- a/searx/webapp.py
++++ b/searx/webapp.py
+@@ -124,6 +124,11 @@ import searx.search
+ from searx.network import stream as http_stream, set_context_network_name
+ from searx.search.checker import get_result as checker_get_result
+
++from opentelemetry import trace
++from opentelemetry.sdk.trace import TracerProvider
++from opentelemetry.sdk.trace.export import BatchSpanProcessor
++from opentelemetry.exporter.otlp.proto.grpc.trace_exporter import OTLPSpanExporter
++from opentelemetry.instrumentation.flask import FlaskInstrumentor
+
+ logger = logger.getChild('webapp')
+
+@@ -151,6 +156,16 @@ STATS_SORT_PARAMETERS = {
+ # Flask app
+ app = Flask(__name__, static_folder=settings['ui']['static_path'], template_folder=templates_path)
+
++# Initialize OpenTelemetry
++trace.set_tracer_provider(TracerProvider())
++tracer = trace.get_tracer(__name__)
++# Set up OTLP exporter
++otlp_exporter = OTLPSpanExporter(endpoint=os.environ["OTEL_EXPORTER_OTLP_ENDPOINT"])
++span_processor = BatchSpanProcessor(otlp_exporter)
++trace.get_tracer_provider().add_span_processor(span_processor)
++# Create an instance of the FastAPI application and let opentelemetry instrument it
++FlaskInstrumentor().instrument_app(app, excluded_urls="metrics")
++
+ app.jinja_env.trim_blocks = True
+ app.jinja_env.lstrip_blocks = True
+ app.jinja_env.add_extension('jinja2.ext.loopcontrols')  # pylint: disable=no-member
+@@ -345,6 +360,7 @@ def get_client_settings():
+     }
+
+
++@tracer.start_as_current_span("render")
+ def render(template_name: str, **kwargs):
+     # values from the preferences
+     # pylint: disable=too-many-statements
+@@ -584,6 +600,7 @@ def rss_xsl():
+
+
+ @app.route('/search', methods=['GET', 'POST'])
++@tracer.start_as_current_span("search")
+ def search():
+     """Search query in q and return results.
