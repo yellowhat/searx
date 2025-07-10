@@ -8,7 +8,7 @@ spec:
     - name: searx
       image: searx:local
       env:
-        - name: SEARXNG_REDIS_URL
+        - name: SEARXNG_VALKEY_URL
           value: redis://localhost:6379/0
       ports:
         - name: http
