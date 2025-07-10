@@ -6,4 +6,4 @@ set -euo pipefail
 timeout 60s sh -c "until curl http://localhost:8080/healthz; do sleep 1; done"
 
 # Make a search
-curl http://localhost:8080/search?q=searxng
+curl http://localhost:8080/search?q=searxng&format=json
