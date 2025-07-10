@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "pyright": "^1.1.391"
+  },
+  "scripts": {
+    "clean": "rm -Rf node_modules package-lock.json"
+  }
+}
