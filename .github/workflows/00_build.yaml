@@ -1,14 +1,8 @@
 ---
-name: Container
+name: Build
 
-on:
-  pull_request:
-  push:
-    branches:
-      - main
-  workflow_dispatch:
-  schedule:
-    - cron: '0 1 * * *'
+on:  # yamllint disable-line rule:truthy
+  workflow_call: # allow this workflow to be called from other workflows
 
 env:
   REGISTRY: ghcr.io
@@ -18,8 +12,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     permissions:
-      contents: read
-      packages: write
+      contents: read  # Required to checkout
+      packages: write # Required to push container image
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4.2.2
