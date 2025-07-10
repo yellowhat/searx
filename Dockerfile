@@ -1,7 +1,12 @@
 FROM ghcr.io/astral-sh/uv:0.7.20-python3.13-alpine
 
-ENV CWD=/usr/local/searxng
-ENV SEARXNG_SETTINGS_PATH=${CWD}/settings.yml
+ENV CWD /usr/local/searxng
+ENV SEARXNG_SETTINGS_PATH ${CWD}/settings.yml
+
+# Compile Python files to .pyc bytecode files.
+# This takes a little longer to install (part of the build process),
+# but often speeds up the application's startup time in the container.
+ENV UV_COMPILE_BYTECODE 1
 
 WORKDIR $CWD
 
