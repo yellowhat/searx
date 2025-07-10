@@ -19,7 +19,7 @@ run: build stop ## Build, run pod and show searx logs
 .PHONY: test
 test: build stop ## Build, run pod and test
 	(cd local && podman kube play "$(POD_FILE)")
-	curl http://localhost:8080
+	bash tests/test.sh
 
 .PHONY: help
 help: ## Makefile Help Page
