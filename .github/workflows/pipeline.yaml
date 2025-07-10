@@ -16,3 +16,7 @@ jobs:
     permissions:
       contents: read  # Required to checkout
       packages: write # Required to push container image
+
+  test:
+    needs: build
+    uses: ./.github/workflows/01_test.yaml
