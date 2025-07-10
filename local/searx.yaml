@@ -67,11 +67,6 @@ spec:
           value: "true"
         - name: GF_AUTH_ANONYMOUS_ORG_ROLE
           value: "Admin"
-        # ?
-        - name: GF_FEATURE_TOGGLES_ENABLE
-          value: "traceqlEditor metricsSummary"
-        - name: GF_INSTALL_PLUGINS
-          value: "https://storage.googleapis.com/integration-artifacts/grafana-exploretraces-app/grafana-exploretraces-app-latest.zip;grafana-traces-app"
       ports:
         - name: http
           containerPort: 3000
