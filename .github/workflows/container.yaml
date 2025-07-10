@@ -2,7 +2,10 @@
 name: Container
 
 on:
+  pull_request:
   push:
+    branches:
+      - main
   workflow_dispatch:
   schedule:
     - cron: '0 1 * * *'
@@ -37,8 +40,9 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           tags: |
-            1.0.0
-            latest
+            type=ref,event=pr,suffix=-{{sha}}
+            type=raw,value=1.0.0,enable={{is_default_branch}}
+            type=raw,value=latest,enable={{is_default_branch}}
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v6.18.0
