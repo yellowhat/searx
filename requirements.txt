@@ -1,1 +1,7 @@
 granian==2.4.1
+
+# Traces
+# Required to export to collector
+opentelemetry-exporter-otlp==1.34.1
+# Required to instrument Flask
+opentelemetry-instrumentation-flask==0.55b1
