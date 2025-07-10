@@ -1,0 +1,19 @@
+---
+name: Test
+
+on:  # yamllint disable-line rule:truthy
+  workflow_call: # allow this workflow to be called from other workflows
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4.2.2
+      
+      - name: Run tests
+        run: make test
