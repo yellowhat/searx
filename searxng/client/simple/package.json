@@ -17,7 +17,7 @@
     "lint:biome": "biome lint"
   },
   "devDependencies": {
-    "@biomejs/biome": "~2.0.6",
+    "@biomejs/biome": "~2.1.0",
     "edge.js": "^6.2.1",
     "ionicons": "^8.0.10",
     "leaflet": "^1.9.4",
