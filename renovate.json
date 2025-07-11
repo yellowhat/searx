@@ -1,14 +1,4 @@
 {
     "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-    "customManagers": [
-        {
-            "description": "Look for pip install",
-            "customType": "regex",
-            "managerFilePatterns": ["/.*/"],
-            "matchStrings": [
-                "(pip|pip3)\\s+install\\s+(?<depName>[_\\-a-zA-Z0-9]+)(\\[.*\\])?==(?<currentValue>[\\w.]+)"
-            ],
-            "datasourceTemplate": "pypi"
-        }
-    ]
+    "ignorePaths": ["**/searxng/**"]
 }
