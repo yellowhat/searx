@@ -22,7 +22,6 @@ exec granian \
     --blocking-threads-idle-timeout 300 \
     --workers-kill-timeout 30 \
     --static-path-mount "/usr/local/searxng/searx/static/" \
-    --static-path-expires 3600 \
     --host "0.0.0.0" \
     --port "$PORT" \
     searx.webapp:app
