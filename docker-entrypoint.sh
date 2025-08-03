@@ -19,8 +19,8 @@ exec granian \
     --no-ws \
     --loop uvloop \
     --blocking-threads 4 \
-    --blocking-threads-idle-timeout 300 \
-    --workers-kill-timeout 30 \
+    --blocking-threads-idle-timeout 5m \
+    --workers-kill-timeout 30s \
     --host "0.0.0.0" \
     --port "$PORT" \
     searx.webapp:app

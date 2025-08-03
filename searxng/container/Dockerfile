@@ -1,11 +1,11 @@
 FROM ghcr.io/searxng/base:searxng-builder AS builder
 
-COPY ./requirements.txt ./requirements.txt
+COPY ./requirements*.txt ./
 
 RUN --mount=type=cache,id=pip,target=/root/.cache/pip python -m venv ./venv \
  && . ./venv/bin/activate \
  && pip install -r requirements.txt \
- && pip install "granian~=2.0"
+ && pip install -r requirements-server.txt
 
 COPY ./searx/ ./searx/
 
@@ -50,8 +50,8 @@ ENV SEARXNG_VERSION="$SEARXNG_GIT_VERSION" \
     GRANIAN_WEBSOCKETS="false" \
     GRANIAN_LOOP="uvloop" \
     GRANIAN_BLOCKING_THREADS="4" \
-    GRANIAN_WORKERS_KILL_TIMEOUT="30" \
-    GRANIAN_BLOCKING_THREADS_IDLE_TIMEOUT="300"
+    GRANIAN_WORKERS_KILL_TIMEOUT="30s" \
+    GRANIAN_BLOCKING_THREADS_IDLE_TIMEOUT="5m"
 
 VOLUME $CONFIG_PATH
 VOLUME $DATA_PATH
