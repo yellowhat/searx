@@ -11,7 +11,6 @@ ENV UV_COMPILE_BYTECODE=1
 WORKDIR $CWD
 
 COPY searxng $CWD
-COPY requirements.txt /tmp/
 COPY patch /tmp/
 
 RUN apk add --no-cache \
@@ -23,7 +22,7 @@ RUN apk add --no-cache \
         --system \
         --no-cache \
         --requirement requirements.txt \
-        --requirement /tmp/requirements.txt \
+        --requirement requirements-server.txt \
  && rm -rf /root/.cache /tmp/*
 
 COPY settings.yml $SEARXNG_SETTINGS_PATH
