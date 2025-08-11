@@ -1,0 +1,22 @@
+---
+name: Clean - Container version
+
+on: # yamllint disable-line rule:truthy
+  schedule:
+    - cron: "0 6 * * 1" # UTC
+  workflow_dispatch:
+
+jobs:
+  clean-container:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read  # Required to read repository data
+      packages: write # Required to modify container repository
+    steps:
+      - name: Delete untagged
+        uses: actions/delete-package-versions@v5.0.0
+        with: 
+          package-name: ${{ github.event.repository.name }}
+          package-type: container
+          min-versions-to-keep: 10
+          delete-only-untagged-versions: "true"
