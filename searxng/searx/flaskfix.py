@@ -21,7 +21,7 @@ class ReverseProxyPathFix:
         proxy_pass http://127.0.0.1:8000;
         proxy_set_header Host $host;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Scheme $scheme;
+        proxy_set_header X-Forwarded-Proto $scheme;
         proxy_set_header X-Script-Name /myprefix;
         }
 
@@ -59,7 +59,7 @@ class ReverseProxyPathFix:
             if path_info.startswith(script_name):
                 environ['PATH_INFO'] = path_info[len(script_name) :]
 
-        scheme = self.scheme or environ.get('HTTP_X_SCHEME', '')
+        scheme = self.scheme or environ.get('HTTP_X_SCHEME') or environ.get('HTTP_X_FORWARDED_PROTO')
         if scheme:
             environ['wsgi.url_scheme'] = scheme
 
