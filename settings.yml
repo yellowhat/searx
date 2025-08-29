@@ -112,6 +112,8 @@ plugins:
     active: false
   searx.plugins.hostnames.SXNGPlugin:
     active: false
+  searx.plugins.time_zone.SXNGPlugin:
+    active: true
   searx.plugins.oa_doi_rewrite.SXNGPlugin:
     active: false
   searx.plugins.tor_check.SXNGPlugin:
