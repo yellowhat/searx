@@ -17,7 +17,6 @@ exec granian \
     --process-name searxng \
     --interface wsgi \
     --no-ws \
-    --loop uvloop \
     --blocking-threads 4 \
     --blocking-threads-idle-timeout 5m \
     --workers-kill-timeout 30s \
