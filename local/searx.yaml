@@ -20,7 +20,7 @@ spec:
         - name: redis
           containerPort: 6379
     - name: prometheus
-      image: docker.io/prom/prometheus:v3.6.0
+      image: docker.io/prom/prometheus:v3.7.0
       args:
         - --config.file=/etc/prometheus.yaml
         - --web.enable-remote-write-receiver
