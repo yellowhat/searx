@@ -85,7 +85,8 @@ ui:
   # UI theme
   default_theme: simple
   theme_args:
-    simple_style: dark
+    # style of simple theme: auto, light, dark, black
+    simple_style: black
 
 outgoing: # communication with search engines
   # Default timeout in seconds, can be override by engine
