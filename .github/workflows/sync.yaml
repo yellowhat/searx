@@ -38,7 +38,8 @@ jobs:
           if [ -f .github/.synced_commit ]; then
             OLD_SHA=$(cat .github/.synced_commit)
           fi
-
+          echo "[INFO] Old sha: $OLD_SHA"
+          
           pushd searxng
           NEW_SHA=$(git log -1 --format=%h)
           echo "sha=$NEW_SHA" | tee -a "$GITHUB_OUTPUT"
