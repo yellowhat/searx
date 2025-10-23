@@ -29,14 +29,34 @@ jobs:
 
       - name: Clone external repository
         run: |
-          git clone https://github.com/searxng/searxng --depth 1
-          rm -rf searxng/.git
+          git clone https://github.com/searxng/searxng
 
-      - name: Get commit SHA
+      - name: Get commit SHA and messages
         id: sha
         run: |
-          cd searxng
-          echo "sha=$(git log -1 --format=%h)" >>$GITHUB_OUTPUT
+          OLD_SHA=""
+          if [ -f .github/.synced_commit ]; then
+            OLD_SHA=$(cat .github/.synced_commit)
+          fi
+          echo "[INFO] Old sha: $OLD_SHA"
+          
+          pushd searxng
+          NEW_SHA=$(git log -1 --format=%h)
+          echo "sha=$NEW_SHA" | tee -a "$GITHUB_OUTPUT"
+          echo "$NEW_SHA" | tee .github/.synced_commit
+
+          if [ -n "$OLD_SHA" ]; then
+            COMMITS=$(git log --pretty=format:"- %s (%h)" ${OLD_SHA}..HEAD)
+          else
+            COMMITS=$(git log --pretty=format:"- %s (%h)" -10)
+          fi
+
+          echo "commits<<EOF" | tee -a "$GITHUB_OUTPUT"
+          echo "$COMMITS" | tee -a "$GITHUB_OUTPUT"
+          echo "EOF" | tee -a "$GITHUB_OUTPUT"
+
+          popd
+          rm -rf searxng/.git
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v7.0.8
@@ -46,4 +66,7 @@ jobs:
           commit-message: 'Update SearXNG to ${{ steps.sha.outputs.sha }}'
           body: |
             Update SearXNG to ${{ steps.sha.outputs.sha }}
+
+            ## New commits:
+            ${{ steps.sha.outputs.commits }}
           branch: update-searxng

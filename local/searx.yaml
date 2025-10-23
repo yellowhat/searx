@@ -15,12 +15,12 @@ spec:
           containerPort: 8080
           hostPort: 8080
     - name: redis
-      image: docker.io/valkey/valkey:8.1.4
+      image: docker.io/valkey/valkey:9.0.0
       ports:
         - name: redis
           containerPort: 6379
     - name: prometheus
-      image: docker.io/prom/prometheus:v3.7.1
+      image: docker.io/prom/prometheus:v3.7.2
       args:
         - --config.file=/etc/prometheus.yaml
         - --web.enable-remote-write-receiver
@@ -35,7 +35,7 @@ spec:
           mountPath: /etc/prometheus.yaml
           readOnly: true
     - name: grafana
-      image: docker.io/grafana/grafana:12.2.0
+      image: docker.io/grafana/grafana:12.2.1
       env:
         # Disable authentication
         - name: GF_AUTH_DISABLE_LOGIN_FORM
