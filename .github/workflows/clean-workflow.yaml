@@ -14,7 +14,7 @@ jobs:
       actions: write # Required to modify workflows
     steps:
       - name: Delete skipped
-        uses: Mattraks/delete-workflow-runs@39f0bbed25d76b34de5594dceab824811479e5de # v2.0.6
+        uses: Mattraks/delete-workflow-runs@3d9fb231aa52470f6bbda413c24b62d0f5983fae # v2.1.0
         with:
           token: ${{ github.token }}
           repository: ${{ github.repository }}
@@ -23,7 +23,7 @@ jobs:
           delete_run_by_conclusion_pattern: skipped
 
       - name: Delete cancelled
-        uses: Mattraks/delete-workflow-runs@39f0bbed25d76b34de5594dceab824811479e5de # v2.0.6
+        uses: Mattraks/delete-workflow-runs@3d9fb231aa52470f6bbda413c24b62d0f5983fae # v2.1.0
         with:
           token: ${{ github.token }}
           repository: ${{ github.repository }}
@@ -32,7 +32,7 @@ jobs:
           delete_run_by_conclusion_pattern: cancelled
 
       - name: Delete workflow runs (older than a week)
-        uses: Mattraks/delete-workflow-runs@39f0bbed25d76b34de5594dceab824811479e5de # v2.0.6
+        uses: Mattraks/delete-workflow-runs@3d9fb231aa52470f6bbda413c24b62d0f5983fae # v2.1.0
         with:
           token: ${{ github.token }}
           repository: ${{ github.repository }}
