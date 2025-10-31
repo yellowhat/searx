@@ -34,16 +34,19 @@ jobs:
       - name: Get commit SHA and messages
         id: sha
         run: |
+          SYNCED_COMMIT_FILE=${{ github.workspace }}/.github/.synced_commit
+          echo "[INFO] commit file path: $SYNCED_COMMIT_FILE"
+
           OLD_SHA=""
-          if [ -f .github/.synced_commit ]; then
-            OLD_SHA=$(cat .github/.synced_commit)
+          if [ -f "$SYNCED_COMMIT_FILE" ]; then
+            OLD_SHA=$(cat "$SYNCED_COMMIT_FILE")
           fi
           echo "[INFO] Old sha: $OLD_SHA"
-          
+
           pushd searxng
           NEW_SHA=$(git log -1 --format=%h)
           echo "sha=$NEW_SHA" | tee -a "$GITHUB_OUTPUT"
-          echo "$NEW_SHA" | tee .github/.synced_commit
+          echo "$NEW_SHA" | tee "$SYNCED_COMMIT_FILE"
 
           if [ -n "$OLD_SHA" ]; then
             COMMITS=$(git log --pretty=format:"- %s (%h)" ${OLD_SHA}..HEAD)
