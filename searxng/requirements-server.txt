@@ -1,1 +1,2 @@
-granian==2.5.5
+granian==2.5.7
+granian[pname]==2.5.7
