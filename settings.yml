@@ -396,21 +396,6 @@ engines:
       require_api_key: false
       results: JSON
 
-  - name: mullvadleta
-    disabled: false
-    engine: mullvad_leta
-    leta_engine: google
-    categories: [general, web]
-    shortcut: ml
-
-  - name: mullvadleta brave
-    disabled: false
-    engine: mullvad_leta
-    leta_engine: brave
-    network: mullvadleta  # use network from engine "mullvadleta" configured above
-    categories: [general, web]
-    shortcut: mlb
-
   - name: odysee
     disabled: false
     engine: odysee
