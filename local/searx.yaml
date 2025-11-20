@@ -35,7 +35,7 @@ spec:
           mountPath: /etc/prometheus.yaml
           readOnly: true
     - name: grafana
-      image: docker.io/grafana/grafana:12.2.1
+      image: docker.io/grafana/grafana:12.3.0
       env:
         # Disable authentication
         - name: GF_AUTH_DISABLE_LOGIN_FORM
