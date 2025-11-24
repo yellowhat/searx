@@ -1058,6 +1058,12 @@ engines:
     play_categ: movies
     disabled: true
 
+  - name: grokipedia
+    engine: grokipedia
+    shortcut: gp
+    disabled: true
+    inactive: true
+
   - name: material icons
     engine: material_icons
     shortcut: mi
@@ -1419,22 +1425,6 @@ engines:
       use_official_api: true
       require_api_key: false
       results: JSON
-
-  # https://docs.searxng.org/dev/engines/online/mullvad_leta.html
-  - name: mullvadleta
-    engine: mullvad_leta
-    disabled: true
-    leta_engine: google
-    categories: [general, web]
-    shortcut: ml
-
-  - name: mullvadleta brave
-    engine: mullvad_leta
-    network: mullvadleta
-    disabled: true
-    leta_engine: brave
-    categories: [general, web]
-    shortcut: mlb
 
   - name: odysee
     engine: odysee
