@@ -24,8 +24,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: searx\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2025-10-20 08:35+0000\n"
-"PO-Revision-Date: 2025-10-21 01:32+0000\n"
+"POT-Creation-Date: 2025-12-05 10:19+0000\n"
+"PO-Revision-Date: 2025-12-12 07:12+0000\n"
 "Last-Translator: SomeTr <sometr@noreply.codeberg.org>\n"
 "Language-Team: Ukrainian <https://translate.codeberg.org/projects/searxng/"
 "searxng/uk/>\n"
@@ -38,7 +38,7 @@ msgstr ""
 "(n % 100 < 12 || n % 100 > 14) ? 1 : n % 1 == 0 && "
 "(n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || (n % 100 >=11 && n % 100 <=14 ))"
 " ? 2: 3);\n"
-"X-Generator: Weblate 5.13.3\n"
+"X-Generator: Weblate 5.14.3\n"
 "Generated-By: Babel 2.17.0\n"
 
 #. CONSTANT_NAMES['NO_SUBGROUPING']
@@ -507,7 +507,7 @@ msgid "active users"
 msgstr "активних користувачів"
 
 #. SOCIAL_MEDIA_TERMS['COMMENTS']
-#: searx/engines/discourse.py:157 searx/engines/hackernews.py:81
+#: searx/engines/discourse.py:157 searx/engines/hackernews.py:83
 #: searx/engines/lemmy.py:130 searx/searxng.msg
 msgid "comments"
 msgstr "коментарів"
@@ -523,7 +523,7 @@ msgid "community"
 msgstr "спільнота"
 
 #. SOCIAL_MEDIA_TERMS['POINTS']
-#: searx/engines/hackernews.py:81 searx/searxng.msg
+#: searx/engines/hackernews.py:83 searx/searxng.msg
 msgid "points"
 msgstr "балів"
 
@@ -533,7 +533,7 @@ msgid "title"
 msgstr "назва"
 
 #. SOCIAL_MEDIA_TERMS['AUTHOR']
-#: searx/engines/hackernews.py:84 searx/searxng.msg
+#: searx/engines/hackernews.py:86 searx/searxng.msg
 msgid "author"
 msgstr "автор"
 
@@ -556,7 +556,7 @@ msgstr "є відповідь"
 msgid "No item found"
 msgstr "Нічого не знайдено"
 
-#: searx/engines/qwant.py:289
+#: searx/engines/qwant.py:299
 #: searx/templates/simple/result_templates/images.html:23 searx/webapp.py:330
 msgid "Source"
 msgstr "Джерело"
@@ -565,15 +565,15 @@ msgstr "Джерело"
 msgid "Error loading the next page"
 msgstr "Не вдалося завантажити наступну сторінку"
 
-#: searx/webapp.py:475 searx/webapp.py:876
+#: searx/webapp.py:481 searx/webapp.py:882
 msgid "Invalid settings, please edit your preferences"
 msgstr "Неправильні налаштування, будь ласка, зробіть зміни в налаштуваннях"
 
-#: searx/webapp.py:491
+#: searx/webapp.py:497
 msgid "Invalid settings"
 msgstr "Неправильні налаштування"
 
-#: searx/webapp.py:568 searx/webapp.py:658
+#: searx/webapp.py:574 searx/webapp.py:664
 msgid "search error"
 msgstr "помилка пошуку"
 
@@ -607,7 +607,7 @@ msgstr "помилка HTTP"
 
 #: searx/webutils.py:50
 msgid "HTTP connection error"
-msgstr "помилка з'єднання HTTP"
+msgstr "помилка з’єднання HTTP"
 
 #: searx/webutils.py:56
 msgid "proxy error"
@@ -665,7 +665,7 @@ msgstr "{title} (ЗАСТАРІЛО)"
 msgid "This entry has been superseded by"
 msgstr "Цей запис було замінено на"
 
-#: searx/engines/qwant.py:291
+#: searx/engines/qwant.py:301
 msgid "Channel"
 msgstr "Канал"
 
@@ -732,13 +732,13 @@ msgstr "Чорний список Ahmia"
 msgid "Filter out onion results that appear in Ahmia's blacklist."
 msgstr "Відфільтрувати onion-адреси, внесені до чорного списку Ahmia."
 
-#: searx/plugins/calculator.py:37
-msgid "Basic Calculator"
-msgstr "Простий калькулятор"
+#: searx/plugins/calculator.py:25
+msgid "Calculator"
+msgstr "Калькулятор"
 
-#: searx/plugins/calculator.py:38
-msgid "Calculate mathematical expressions via the search bar"
-msgstr "Обчислювати математичні вирази в рядку пошуку"
+#: searx/plugins/calculator.py:26
+msgid "Parses and solves mathematical expressions."
+msgstr "Аналізує і розв’язує математичні вирази."
 
 #: searx/plugins/hash_plugin.py:33
 msgid "Hash plugin"
@@ -765,6 +765,17 @@ msgid "Rewrite hostnames and remove or prioritize results based on the hostname"
 msgstr ""
 "Перепишіть імена хостів і видаляйте результати або визначайте їх "
 "пріоритетність на основі імені хоста"
+
+#: searx/plugins/infinite_scroll.py:25
+msgid "Infinite scroll"
+msgstr "Нескінченна прокрутка"
+
+#: searx/plugins/infinite_scroll.py:26
+msgid ""
+"Automatically loads the next page when scrolling to bottom of the current"
+" page"
+msgstr ""
+"Автоматично завантажує наступну сторінку при прокручуванні до кінця поточної"
 
 #: searx/plugins/oa_doi_rewrite.py:54
 msgid "Open Access DOI rewrite"
@@ -804,7 +815,7 @@ msgstr "Плагін часового поясу"
 
 #: searx/plugins/time_zone.py:34
 msgid "Display the current time on different time zones."
-msgstr "Відобразити поточний час у різних часових поясах."
+msgstr "Показує поточний час у різних часових поясах."
 
 #: searx/plugins/tor_check.py:41
 msgid "Tor check plugin"
@@ -838,15 +849,15 @@ msgstr "Видалення URL-адреси трекера"
 msgid "Remove trackers arguments from the returned URL"
 msgstr "Вилучіть аргументи трекера з поверненої URL-адреси"
 
-#: searx/plugins/unit_converter.py:48
+#: searx/plugins/unit_converter.py:42
 msgid "Unit converter plugin"
 msgstr "Плагін-конвертер одиниць вимірювання"
 
-#: searx/plugins/unit_converter.py:49
+#: searx/plugins/unit_converter.py:43
 msgid "Convert between units"
 msgstr "Конвертувати одиниці"
 
-#: searx/result_types/answer.py:226
+#: searx/result_types/answer.py:223
 #, python-brace-format
 msgid "{location}: {temperature}, {condition}"
 msgstr "{location}: {temperature}, {condition}"
@@ -896,7 +907,7 @@ msgstr "Статистика пошукової системи"
 
 #: searx/templates/simple/base.html:73
 msgid "Public instances"
-msgstr "Публічні інстанси"
+msgstr "Публічні екземпляри"
 
 #: searx/templates/simple/base.html:76
 msgid "Privacy policy"
@@ -904,7 +915,7 @@ msgstr "Політика приватності"
 
 #: searx/templates/simple/base.html:79
 msgid "Contact instance maintainer"
-msgstr "Зв'язатися з власником інстансу"
+msgstr "Зв’язатися з власником екземпляра"
 
 #: searx/templates/simple/categories.html:30
 msgid "Click on the magnifier to perform search"
@@ -936,17 +947,18 @@ msgstr "Створення нового повідомлення про проб
 
 #: searx/templates/simple/new_issue.html:66
 msgid "Please check for existing bugs about this engine on GitHub"
-msgstr "Будь ласка, перевірте наявність недоліку цього рушія на GitHub"
+msgstr ""
+"Будь ласка, перевірте наявність звіту про помилку для цього рушія на GitHub"
 
 #: searx/templates/simple/new_issue.html:69
 msgid "I confirm there is no existing bug about the issue I encounter"
 msgstr ""
-"Я підтверджую, що не існує помилки, пов'язаної з проблемою, що мені "
-"зустрілася"
+"Я підтверджую, що для проблеми, яка мені зустрілася, не існує звіту про "
+"помилку"
 
 #: searx/templates/simple/new_issue.html:71
 msgid "If this is a public instance, please specify the URL in the bug report"
-msgstr "Якщо це публічний інстанс, укажіть URL-адресу у звіті про помилку"
+msgstr "Якщо це публічний екземпляр, укажіть URL-адресу у звіті про помилку"
 
 #: searx/templates/simple/new_issue.html:72
 msgid "Submit a new issue on Github including the above information"
@@ -1023,23 +1035,23 @@ msgstr "Типові категорії"
 msgid "User interface"
 msgstr "Інтерфейс користувача"
 
-#: searx/templates/simple/preferences.html:227
+#: searx/templates/simple/preferences.html:224
 msgid "Privacy"
 msgstr "Конфіденційність"
 
-#: searx/templates/simple/preferences.html:242
+#: searx/templates/simple/preferences.html:239
 msgid "Engines"
 msgstr "Пошукові системи"
 
-#: searx/templates/simple/preferences.html:244
+#: searx/templates/simple/preferences.html:241
 msgid "Currently used search engines"
 msgstr "Пошукові системи, які використовуються"
 
-#: searx/templates/simple/preferences.html:253
+#: searx/templates/simple/preferences.html:250
 msgid "Special Queries"
 msgstr "Особливі запити"
 
-#: searx/templates/simple/preferences.html:261
+#: searx/templates/simple/preferences.html:258
 msgid "Cookies"
 msgstr "Cookie-файли"
 
@@ -1325,7 +1337,7 @@ msgstr "Змінити пошукову систему, вказану в нал
 
 #: searx/templates/simple/messages/no_results.html:22
 msgid "Switch to another instance:"
-msgstr "Перемкнути інстанс SearXNG:"
+msgstr "Перемкнути екземпляр SearXNG:"
 
 #: searx/templates/simple/messages/no_results.html:24
 msgid "Search for another query or select another category."
@@ -1391,7 +1403,7 @@ msgstr "За допомогою цього списку ви можете оці
 
 #: searx/templates/simple/preferences/cookies.html:9
 msgid "Cookie name"
-msgstr "Ім'я cookie"
+msgstr "Ім’я cookie"
 
 #: searx/templates/simple/preferences/cookies.html:10
 msgid "Value"
@@ -1435,7 +1447,7 @@ msgstr "Хеш налаштувань"
 
 #: searx/templates/simple/preferences/doi_resolver.html:1
 msgid "Digital Object Identifier (DOI)"
-msgstr "Цифровий ідентифікатор об'єкта (DOI)"
+msgstr "Цифровий ідентифікатор об’єкта (DOI)"
 
 #: searx/templates/simple/preferences/doi_resolver.html:6
 msgid "Open Access DOI resolver"
@@ -1535,18 +1547,6 @@ msgstr "Проксі для зображень"
 #: searx/templates/simple/preferences/image_proxy.html:14
 msgid "Proxy image results through SearXNG"
 msgstr "Результати пошуку зображень через проксі SearXNG"
-
-#: searx/templates/simple/preferences/infinite_scroll.html:2
-msgid "Infinite scroll"
-msgstr "Нескінченна прокрутка"
-
-#: searx/templates/simple/preferences/infinite_scroll.html:14
-msgid ""
-"Automatically load the next page when scrolling to the bottom of the "
-"current page"
-msgstr ""
-"Автоматичне завантаження наступної сторінки при прокручуванні поточної до"
-" кінця"
 
 #: searx/templates/simple/preferences/language.html:24
 msgid "What language do you prefer for search?"
@@ -2378,3 +2378,17 @@ msgstr "приховати відео"
 
 #~ msgid "repo"
 #~ msgstr "репозиторій"
+
+#~ msgid "Basic Calculator"
+#~ msgstr "Простий калькулятор"
+
+#~ msgid "Calculate mathematical expressions via the search bar"
+#~ msgstr "Обчислювати математичні вирази в рядку пошуку"
+
+#~ msgid ""
+#~ "Automatically load the next page when"
+#~ " scrolling to the bottom of the "
+#~ "current page"
+#~ msgstr ""
+#~ "Автоматичне завантаження наступної сторінки "
+#~ "при прокручуванні поточної до кінця"

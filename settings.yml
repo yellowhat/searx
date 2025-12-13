@@ -78,8 +78,6 @@ server:
     Referrer-Policy: no-referrer
 
 ui:
-  # Automatically loads the next page when scrolling to bottom of the current page.
-  infinite_scroll: true
   # Hotkeys: default or vim
   hotkeys: default
   # UI theme
@@ -102,6 +100,8 @@ outgoing: # communication with search engines
 
 plugins:
   searx.plugins.calculator.SXNGPlugin:
+    active: true
+  searx.plugins.infinite_scroll.SXNGPlugin:
     active: true
   searx.plugins.hash_plugin.SXNGPlugin:
     active: true
