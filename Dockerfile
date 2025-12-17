@@ -1,4 +1,4 @@
-FROM ghcr.io/astral-sh/uv:0.9.15-python3.13-alpine
+FROM ghcr.io/astral-sh/uv:0.9.18-python3.13-alpine
 
 ENV CWD=/usr/local/searxng
 ENV SEARXNG_SETTINGS_PATH=${CWD}/settings.yml
@@ -13,7 +13,10 @@ WORKDIR $CWD
 COPY searxng $CWD
 COPY patch /tmp/
 
-RUN apk add --no-cache \
+# Workaround until 3.23.1
+# https://github.com/docker/build-push-action/issues/1436
+RUN apk upgrade --no-cache --scripts=no apk-tools \
+ && apk add --no-cache \
         brotli \
         ca-certificates \
         git \
