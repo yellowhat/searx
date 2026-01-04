@@ -13,10 +13,7 @@ WORKDIR $CWD
 COPY searxng $CWD
 COPY patch /tmp/
 
-# Workaround until 3.23.1
-# https://github.com/docker/build-push-action/issues/1436
-RUN apk upgrade --no-cache --scripts=no apk-tools \
- && apk add --no-cache \
+RUN apk add --no-cache \
         brotli \
         ca-certificates \
         git \
