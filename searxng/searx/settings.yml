@@ -403,6 +403,9 @@ engines:
 
   - name: annas archive
     engine: annas_archive
+    base_url:
+      - https://annas-archive.li
+      - https://annas-archive.pm
     disabled: true
     shortcut: aa
     timeout: 5
@@ -941,6 +944,26 @@ engines:
     engine: frinkiac
     shortcut: frk
     disabled: true
+
+  - name: fynd
+    engine: xpath
+    search_url: https://fynd.bot/?search={query}&offset={pageno}
+    results_xpath: //div[contains(@class, "result-item")]
+    url_xpath: .//a/@href
+    title_xpath: .//div[contains(@class, "title-line")]
+    content_xpath: .//div[contains(@class, "description")]
+    thumbnail_xpath: .//img[contains(@class, "preview-img")]/@src
+    paging: true
+    first_page_num: 0
+    page_size: 10
+    categories: general
+    disabled: true
+    shortcut: fynd
+    about:
+      website: https://fynd.bot
+      use_official_api: false
+      require_api_key: false
+      results: HTML
 
   - name: fyyd
     engine: fyyd
@@ -1640,7 +1663,7 @@ engines:
       - https://pximg.example.org
       # A proxy is required to load the images. Hosting an image proxy server
       # for Pixiv:
-      #    --> https://pixivfe.pages.dev/hosting-image-proxy-server/
+      #    --> https://pixivfe-docs.pages.dev/hosting/image-proxy-server/
       # Proxies from public instances.  Ask the public instances owners if they
       # agree to receive traffic from SearXNG!
       #    --> https://codeberg.org/VnPower/PixivFE#instances
