@@ -661,23 +661,56 @@ engines:
   - name: mojeek
     disabled: true
     shortcut: mjk
-    engine: xpath
-    paging: true
-    search_url: https://www.mojeek.com/search?q={query}&s={pageno}
-    results_xpath: /html/body//div[@class="results"]/ul[@class="results-standard"]/li
-    url_xpath: ./h2/a/@href
-    title_xpath: ./h2
-    content_xpath: ./p[@class="s"]
-    suggestion_xpath: /html/body//div[@class="top-info"]/p[@class="top-info spell"]/a
-    first_page_num: 0
-    page_size: 10
-    about:
-      website: https://www.mojeek.com/
-      wikidata_id: Q60747299
-      official_api_documentation: https://www.mojeek.com/services/api.html/
-      use_official_api: false
-      require_api_key: false
-      results: HTML
+    engine: mojeek
+    categories: [general, web]
+
+  - name: mojeek images
+    disabled: true
+    shortcut: mjkimg
+    engine: mojeek
+    categories: [images, web]
+    search_type: images
+    paging: false
+
+  - name: mojeek news
+    disabled: true
+    shortcut: mjknews
+    engine: mojeek
+    categories: [news, web]
+    search_type: news
+    paging: false
+
+  - name: national vulnerability database
+    disabled: true
+    engine: nvd
+    shortcut: nvd
+
+  - name: naver
+    disabled: true
+    categories: [general, web]
+    engine: naver
+    shortcut: nvr
+
+  - name: naver images
+    disabled: true
+    naver_category: images
+    categories: [images]
+    engine: naver
+    shortcut: nvri
+
+  - name: naver news
+    disabled: true
+    naver_category: news
+    categories: [news]
+    engine: naver
+    shortcut: nvrn
+
+  - name: naver videos
+    disabled: true
+    naver_category: videos
+    categories: [videos]
+    engine: naver
+    shortcut: nvrv
 
   - name: peertube
     disabled: true
