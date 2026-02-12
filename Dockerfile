@@ -1,4 +1,16 @@
-FROM ghcr.io/astral-sh/uv:0.10.0-python3.14-alpine
+FROM ghcr.io/astral-sh/uv:0.10.2-python3.14-alpine AS base
+
+FROM base AS builder
+
+RUN apk add --no-cache \
+        build-base \
+        python3-dev \
+ && LDFLAGS="-static-libstdc++ -static-libgcc" pip wheel \
+        --wheel-dir /wheels \
+        --no-cache-dir \
+        fasttext-predict
+
+FROM base
 
 ENV CWD=/usr/local/searxng
 ENV SEARXNG_SETTINGS_PATH=${CWD}/settings.yml
@@ -12,6 +24,7 @@ WORKDIR $CWD
 
 COPY searxng $CWD
 COPY patch /tmp/
+COPY --from=builder /wheels /wheels
 
 RUN apk add --no-cache \
         brotli \
@@ -21,9 +34,10 @@ RUN apk add --no-cache \
  && uv pip install \
         --system \
         --no-cache \
+        --find-links /wheels \
         --requirement requirements.txt \
         --requirement requirements-server.txt \
- && rm -rf /root/.cache /tmp/*
+ && rm -rf /root/.cache /tmp/* /wheels
 
 COPY settings.yml $SEARXNG_SETTINGS_PATH
 COPY --chmod=755 docker-entrypoint.sh ./
