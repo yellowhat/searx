@@ -1,13 +1,13 @@
 diff --git a/searx/webapp.py b/searx/webapp.py
-index 9d51b5e8c..14a1fa836 100755
+index 23dd56e66..e92957f10 100755
 --- a/searx/webapp.py
 +++ b/searx/webapp.py
-@@ -1194,14 +1194,10 @@ def stats_checker():
+@@ -1168,14 +1168,9 @@ def stats_errors():
  
  @app.route('/metrics')
  def stats_open_metrics():
 -    password = settings['general'].get("open_metrics")
- 
+-
 -    if not (settings['general'].get("enable_metrics") and password):
 +    if not settings['general'].get("enable_metrics"):
          return Response('open metrics is disabled', status=404, mimetype='text/plain')
@@ -17,4 +17,4 @@ index 9d51b5e8c..14a1fa836 100755
 -
      filtered_engines = dict(filter(lambda kv: sxng_request.preferences.validate_token(kv[1]), engines.items()))
  
-     checker_results = checker_get_result()
+     engine_stats = get_engines_stats(filtered_engines)

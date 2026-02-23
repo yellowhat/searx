@@ -41,11 +41,11 @@ search:
   # Engine suspension time after error (in seconds; set to 0 to disable)
   suspended_times:
     # For error "Access denied" and "HTTP error [402, 403]"
-    SearxEngineAccessDenied: 86400
+    SearxEngineAccessDenied: 180
     # For error "CAPTCHA"
-    SearxEngineCaptcha: 86400
+    SearxEngineCaptcha: 3600
     # For error "Too many request" and "HTTP error 429"
-    SearxEngineTooManyRequests: 3600
+    SearxEngineTooManyRequests: 180
     # Cloudflare CAPTCHA
     cf_SearxEngineCaptcha: 1296000
     cf_SearxEngineAccessDenied: 86400
@@ -122,28 +122,6 @@ plugins:
   searx.plugins.tracker_url_remover.SXNGPlugin:
     active: true
 
-checker:
-  # Disable checker when in debug mode
-  off_when_debug: true
-  additional_tests:
-    rosebud: &test_rosebud
-      matrix:
-        query: rosebud
-        lang: en
-      result_container:
-        - not_empty
-        - ["one_title_contains", "citizen kane"]
-      test:
-        - unique_results
-  # tests: only for the YAML anchors (see the engines section)
-  tests:
-    infobox: &tests_infobox
-      infobox:
-        matrix:
-          query: ["linux", "new york", "bbc"]
-        result_container:
-          - has_infobox
-
 categories_as_tabs:
   general:
   images:
@@ -171,7 +149,6 @@ engines:
     shortcut: wd
     # add "list" to the array to get results in the results list
     display_type: ["infobox"]
-    tests: *tests_infobox
     categories: [general]
     timeout: 3.0
     weight: 2
@@ -216,21 +193,21 @@ engines:
   - name: duckduckgo images
     disabled: false
     engine: duckduckgo_extra
-    categories: [images, web]
+    categories: [images]
     ddg_category: images
     shortcut: ddi
 
   - name: duckduckgo videos
     disabled: false
     engine: duckduckgo_extra
-    categories: [videos, web]
+    categories: [videos]
     ddg_category: videos
     shortcut: ddv
 
   - name: duckduckgo news
     disabled: false
     engine: duckduckgo_extra
-    categories: [news, web]
+    categories: [news]
     ddg_category: news
     shortcut: ddn
 
@@ -244,7 +221,6 @@ engines:
     engine: duckduckgo_definitions
     shortcut: ddd
     weight: 2
-    tests: *tests_infobox
 
   - name: gitlab
     disabled: false
@@ -435,8 +411,6 @@ engines:
     engine: qwant
     shortcut: qw
     categories: [general, web]
-    additional_tests:
-      rosebud: *test_rosebud
 
   - name: qwant news
     disabled: false
@@ -486,8 +460,6 @@ engines:
     engine: startpage
     shortcut: sp
     timeout: 6.0
-    additional_tests:
-      rosebud: *test_rosebud
 
   - name: urbandictionary
     disabled: true  # Too many errors
@@ -576,8 +548,6 @@ engines:
     base_url: "https://{language}.wikiquote.org/"
     number_of_results: 5
     search_type: text
-    additional_tests:
-      rosebud: *test_rosebud
     about:
       website: https://www.wikiquote.org/
       wikidata_id: Q369
