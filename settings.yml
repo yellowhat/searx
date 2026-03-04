@@ -25,7 +25,7 @@ search:
   safe_search: 0
   # Existing autocomplete backends:
   # "360search", "baidu", "brave", "dbpedia", "duckduckgo", "google", "yandex",
-  # "mwmbl", "seznam", "sogou", "stract", "swisscows", "quark", "qwant", "wikipedia"
+  # "mwmbl", "seznam", "sogou", "swisscows", "quark", "qwant", "wikipedia"
   # leave blank to turn it off by default.
   autocomplete: duckduckgo
   # Minimum number of characters to type before autocompleter starts
