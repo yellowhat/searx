@@ -1,4 +1,4 @@
-FROM ghcr.io/astral-sh/uv:0.10.9-python3.14-alpine
+FROM ghcr.io/astral-sh/uv:0.10.10-python3.14-alpine
 
 ENV CWD=/usr/local/searxng
 ENV SEARXNG_SETTINGS_PATH=${CWD}/settings.yml
