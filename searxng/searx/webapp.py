@@ -419,8 +419,8 @@ def render(template_name: str, **kwargs):
     # values from settings
     kwargs['search_formats'] = [x for x in settings['search']['formats'] if x != 'html']
     kwargs['instance_name'] = get_setting('general.instance_name')
-    kwargs['searx_version'] = VERSION_STRING
-    kwargs['searx_git_url'] = GIT_URL
+    kwargs['searxng_version'] = VERSION_STRING
+    kwargs['searxng_git_url'] = GIT_URL
     kwargs['enable_metrics'] = get_setting('general.enable_metrics')
     kwargs['get_setting'] = get_setting
     kwargs['get_pretty_url'] = get_pretty_url
@@ -1153,7 +1153,6 @@ def stats():
         engine_stats = engine_stats,
         engine_reliabilities = engine_reliabilities,
         selected_engine_name = selected_engine_name,
-        searx_git_branch = GIT_BRANCH,
         technical_report = technical_report,
         # fmt: on
     )
@@ -1214,6 +1213,29 @@ def opensearch():
     ret = render('opensearch.xml', opensearch_method=method, autocomplete=autocomplete)
     resp = Response(response=ret, status=200, mimetype="application/opensearchdescription+xml")
     return resp
+
+
+@app.route('/manifest.json', methods=['GET'])
+def manifest():
+    theme = sxng_request.preferences.get_value('simple_style')
+    if theme not in ("light", "dark", "black"):
+        theme = "light"
+
+    theme_color = get_setting(f'brand.pwa_colors.theme_color_{theme}')
+    background_color = get_setting(f'brand.pwa_colors.background_color_{theme}')
+    ret = render('manifest.json', theme_color=theme_color, background_color=background_color)
+    resp = Response(response=ret, status=200, mimetype="application/json")
+    return resp
+
+
+@app.route('/logo/<resolution>')
+def manifest_logo(resolution=0):
+    theme = sxng_request.preferences.get_value("theme")
+    return send_from_directory(
+        os.path.join(app.root_path, settings['ui']['static_path'], 'themes', theme, 'img', 'logos'),  # type: ignore
+        resolution,
+        mimetype='image/vnd.microsoft.icon',
+    )
 
 
 @app.route('/favicon.ico')
