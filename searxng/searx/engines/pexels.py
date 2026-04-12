@@ -6,10 +6,8 @@ import re
 from urllib.parse import urlencode
 from lxml import html
 
-import cloudscraper
-
 from searx.result_types import EngineResults
-from searx.utils import eval_xpath_list
+from searx.utils import eval_xpath_list, gen_useragent
 from searx.enginelib import EngineCache
 from searx.exceptions import SearxEngineAPIException
 from searx.network import get
@@ -27,6 +25,11 @@ about = {
 
 base_url = 'https://www.pexels.com'
 categories = ['images']
+
+api_key = "H2jk9uKnhRmL6WPwh89zBezWvr"
+"""
+Fallback API key to use when SearXNG fails to automatically extract one from the website.
+"""
 results_per_page = 20
 
 paging = True
@@ -40,6 +43,8 @@ SECRET_KEY_DB_KEY = "secret-key"
 CACHE: EngineCache
 """Cache to store the secret API key for the engine."""
 
+enable_http2 = False
+
 
 def init(engine_settings):
     global CACHE  # pylint: disable=global-statement
@@ -47,8 +52,15 @@ def init(engine_settings):
 
 
 def _get_secret_key():
-    scraper = cloudscraper.create_scraper()
-    resp = scraper.get(base_url)
+    resp = get(
+        base_url,
+        headers={
+            # circumvents Cloudflare bot protections
+            "User-Agent": gen_useragent(),
+            "Referer": base_url,
+        },
+    )
+
     if resp.status_code != 200:
         raise SearxEngineAPIException("failed to obtain secret key")
 
@@ -80,10 +92,14 @@ def request(query, params):
     # cache api key for future requests
     secret_key = CACHE.get(SECRET_KEY_DB_KEY)
     if not secret_key:
-        secret_key = _get_secret_key()
-        CACHE.set(SECRET_KEY_DB_KEY, secret_key)
+        try:
+            secret_key = _get_secret_key()
+            CACHE.set(SECRET_KEY_DB_KEY, secret_key)
+        except SearxEngineAPIException as e:
+            logger.debug("failed to extract API key %s" % e)
+            secret_key = api_key
 
-    params["headers"]["secret-key"] = CACHE.get(SECRET_KEY_DB_KEY)
+    params["headers"]["secret-key"] = secret_key
 
     return params
 
