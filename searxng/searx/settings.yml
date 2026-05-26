@@ -531,18 +531,22 @@ engines:
     engine: bing
     shortcut: bi
     disabled: true
+    # base_url: https://cn.bing.com  # for instances hosted in China
 
   - name: bing images
     engine: bing_images
     shortcut: bii
+    # base_url: https://cn.bing.com  # for instances hosted in China
 
   - name: bing news
     engine: bing_news
     shortcut: bin
+    # base_url: https://cn.bing.com  # for instances hosted in China
 
   - name: bing videos
     engine: bing_videos
     shortcut: biv
+    # base_url: https://cn.bing.com  # for instances hosted in China
 
   - name: bitchute
     engine: bitchute
@@ -884,6 +888,11 @@ engines:
   - name: findthatmeme
     engine: findthatmeme
     shortcut: ftm
+    disabled: true
+
+  - name: flaticon
+    engine: flaticon
+    shortcut: fli
     disabled: true
 
   - name: flickr
@@ -1391,7 +1400,6 @@ engines:
     engine: metacpan
     shortcut: cpan
     disabled: true
-    number_of_results: 20
 
   # https://docs.searxng.org/dev/engines/offline/search-indexer-engines.html#module-searx.engines.meilisearch
   # - name: meilisearch
@@ -1790,7 +1798,6 @@ engines:
     engine: qwant
     shortcut: qw
     categories: [general, web]
-    disabled: true
 
   - name: qwant news
     qwant_categ: news
