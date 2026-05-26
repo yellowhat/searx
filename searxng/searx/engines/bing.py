@@ -13,7 +13,6 @@ implementations are shared by other engines:
 """
 
 import base64
-import re
 import typing as t
 from urllib.parse import parse_qs, urlencode, urlparse
 
@@ -48,7 +47,7 @@ _safesearch_map: dict[int, str] = {
 }
 """Filter results. 0: None, 1: Moderate, 2: Strict"""
 
-base_url = "https://www.bing.com/search"
+base_url = "https://www.bing.com"
 """Bing-Web search URL"""
 
 
@@ -94,7 +93,7 @@ def override_accept_language(params: "OnlineParams", engine_region: str | None) 
     params["headers"]["Accept-Language"] = f"{engine_region},{lang};q=0.9"
 
 
-def request(query: str, params: "OnlineParams") -> "OnlineParams":
+def request(query: str, params: "OnlineParams"):
     """Assemble a Bing-Web request."""
 
     engine_region = traits.get_region(params["searxng_locale"], traits.all_locale)
@@ -110,13 +109,7 @@ def request(query: str, params: "OnlineParams") -> "OnlineParams":
     if locale_params:
         query_params.update(locale_params)
 
-    params["url"] = f"{base_url}?{urlencode(query_params)}"
-
-    # in some regions where geoblocking is employed (e.g. China),
-    # www.bing.com redirects to the regional version of Bing
-    params["allow_redirects"] = True
-
-    return params
+    params["url"] = f"{base_url}/search?{urlencode(query_params)}"
 
 
 def response(resp: "SXNG_Response") -> list[dict[str, t.Any]]:
@@ -158,12 +151,6 @@ def response(resp: "SXNG_Response") -> list[dict[str, t.Any]]:
         content = extract_text(content_els)
 
         results.append({"url": href, "title": title, "content": content})
-
-    if results:
-        result_len_container = "".join(eval_xpath(dom, '//span[@class="sb_count"]//text()'))
-        result_len_container = re.sub(r"[^0-9]", "", result_len_container)
-        if result_len_container:
-            results.append({"number_of_results": int(result_len_container)})
 
     return results
 
