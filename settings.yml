@@ -405,37 +405,6 @@ engines:
     shortcut: pypi
     engine: pypi
 
-  - name: qwant
-    disabled: true
-    qwant_categ: web
-    engine: qwant
-    shortcut: qw
-    categories: [general, web]
-
-  - name: qwant news
-    disabled: true
-    qwant_categ: news
-    engine: qwant
-    shortcut: qwn
-    categories: news
-    network: qwant
-
-  - name: qwant images
-    disabled: true
-    qwant_categ: images
-    engine: qwant
-    shortcut: qwi
-    categories: [images, web]
-    network: qwant
-
-  - name: qwant videos
-    disabled: true
-    qwant_categ: videos
-    engine: qwant
-    shortcut: qwv
-    categories: [videos, web]
-    network: qwant
-
   - name: reddit
     disabled: false
     engine: reddit
@@ -460,15 +429,6 @@ engines:
     engine: startpage
     shortcut: sp
     timeout: 6.0
-
-  - name: urbandictionary
-    disabled: true  # Too many errors
-    shortcut: ud
-    engine: xpath
-    search_url: https://www.urbandictionary.com/define.php?term={query}
-    url_xpath: //*[@class="word"]/@href
-    title_xpath: //*[@class="def-header"]
-    content_xpath: //*[@class="meaning"]
 
   - name: yahoo
     disabled: false
@@ -576,48 +536,6 @@ engines:
       website: https://www.wiktionary.org/
       wikidata_id: Q151
 
-  - name: wikiversity
-    disabled: true
-    engine: mediawiki
-    shortcut: wv
-    categories: general
-    base_url: "https://{language}.wikiversity.org/"
-    number_of_results: 5
-    search_type: text
-    about:
-      website: https://www.wikiversity.org/
-      wikidata_id: Q370
-
-  - name: wikivoyage
-    disabled: true
-    engine: mediawiki
-    shortcut: wy
-    categories: general
-    base_url: "https://{language}.wikivoyage.org/"
-    number_of_results: 5
-    search_type: text
-    about:
-      website: https://www.wikivoyage.org/
-      wikidata_id: Q373
-
-  - name: wolframalpha
-    disabled: true
-    shortcut: wa
-    engine: wolframalpha_noapi
-    timeout: 6.0
-    categories: general
-    disabled: true
-
-  - name: wolframalpha_api
-    # You can use the engine using the official stable API, but you need an API
-    # key.  See: https://products.wolframalpha.com/api/
-    engine: wolframalpha_api
-    # api_key: ''  # required!
-    shortcut: waa
-    timeout: 6.0
-    categories: general
-    inactive: true
-
   - name: dictzone
     disabled: false
     engine: dictzone
@@ -628,71 +546,6 @@ engines:
     engine: duden
     shortcut: du
 
-  - name: mojeek
-    disabled: true
-    shortcut: mjk
-    engine: mojeek
-    categories: [general, web]
-
-  - name: mojeek images
-    disabled: true
-    shortcut: mjkimg
-    engine: mojeek
-    categories: [images, web]
-    search_type: images
-    paging: false
-
-  - name: mojeek news
-    disabled: true
-    shortcut: mjknews
-    engine: mojeek
-    categories: [news, web]
-    search_type: news
-    paging: false
-
-  - name: national vulnerability database
-    disabled: true
-    engine: nvd
-    shortcut: nvd
-
-  - name: naver
-    disabled: true
-    categories: [general, web]
-    engine: naver
-    shortcut: nvr
-
-  - name: naver images
-    disabled: true
-    naver_category: images
-    categories: [images]
-    engine: naver
-    shortcut: nvri
-
-  - name: naver news
-    disabled: true
-    naver_category: news
-    categories: [news]
-    engine: naver
-    shortcut: nvrn
-
-  - name: naver videos
-    disabled: true
-    naver_category: videos
-    categories: [videos]
-    engine: naver
-    shortcut: nvrv
-
-  - name: peertube
-    disabled: true
-    engine: peertube
-    shortcut: ptb
-    paging: true
-    # https://instances.joinpeertube.org/instances
-    base_url: https://peertube.biz/
-    # base_url: https://tube.tardis.world/
-    categories: videos
-    timeout: 6.0
-
   - name: rumble
     disabled: false
     engine: rumble
@@ -700,22 +553,6 @@ engines:
     base_url: https://rumble.com/
     paging: true
     categories: videos
-
-  - name: wikimini
-    engine: xpath
-    shortcut: wkmn
-    search_url: https://fr.wikimini.org/w/index.php?search={query}&title=Sp%C3%A9cial%3ASearch&fulltext=Search
-    url_xpath: //li/div[@class="mw-search-result-heading"]/a/@href
-    title_xpath: //li//div[@class="mw-search-result-heading"]/a
-    content_xpath: //li/div[@class="searchresult"]
-    categories: general
-    disabled: true
-    about:
-      website: https://wikimini.org/
-      wikidata_id: Q3568032
-      use_official_api: false
-      require_api_key: false
-      results: HTML
 
   - name: brave
     disabled: false
