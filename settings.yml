@@ -324,25 +324,6 @@ engines:
     lemmy_type: Comments
     shortcut: lecom
 
-  - name: library genesis
-    disabled: false
-    engine: xpath
-    # search_url: https://libgen.is/search.php?req={query}
-    search_url: https://libgen.rs/search.php?req={query}
-    url_xpath: //a[contains(@href,"book/index.php?md5")]/@href
-    title_xpath: //a[contains(@href,"book/")]/text()[1]
-    content_xpath: //td/a[1][contains(@href,"=author")]/text()
-    categories: files
-    timeout: 7.0
-    shortcut: lg
-    about:
-      website: https://libgen.fun/
-      wikidata_id: Q22017206
-      official_api_documentation:
-      use_official_api: false
-      require_api_key: false
-      results: HTML
-
   - name: lobste.rs
     disabled: false
     engine: xpath
@@ -394,29 +375,6 @@ engines:
     engine: openstreetmap
     shortcut: osm
 
-  - name: pubmed
-    disabled: false
-    engine: pubmed
-    shortcut: pub
-    timeout: 3.0
-
-  - name: pypi
-    disabled: false
-    shortcut: pypi
-    engine: pypi
-
-  - name: reddit
-    disabled: false
-    engine: reddit
-    shortcut: re
-    page_size: 25
-    timeout: 10.0
-
-  - name: sepiasearch
-    disabled: false
-    engine: sepiasearch
-    shortcut: sep
-
   - name: stackoverflow
     disabled: false
     engine: stackexchange
@@ -444,24 +402,6 @@ engines:
     disabled: false
     shortcut: yt
     engine: youtube_noapi
-
-  - name: youtube_api
-    # You can use the engine using the official stable API, but you need an API
-    # key See: https://console.developers.google.com/project
-    engine: youtube_api
-    # api_key: ''  # required!
-    shortcut: yta
-    inactive: true
-
-  - name: dailymotion
-    disabled: false
-    engine: dailymotion
-    shortcut: dm
-
-  - name: vimeo
-    disabled: false
-    engine: vimeo
-    shortcut: vm
 
   - name: wiby
     disabled: false
@@ -545,14 +485,6 @@ engines:
     disabled: false
     engine: duden
     shortcut: du
-
-  - name: rumble
-    disabled: false
-    engine: rumble
-    shortcut: ru
-    base_url: https://rumble.com/
-    paging: true
-    categories: videos
 
   - name: brave
     disabled: false
