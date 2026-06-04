@@ -964,6 +964,21 @@ engines:
     timeout: 8.0
     disabled: true
 
+  - name: gabanza
+    engine: xpath
+    search_url: https://www.gabanza.com/search?query={query}
+    shortcut: gab
+    disabled: true
+    results_xpath: //div[contains(@class, "border-t")]/div/div
+    url_xpath: .//a/@href
+    title_xpath: ./a
+    content_xpath: .//p
+    about:
+      website: https://www.gabanza.com
+      use_official_api: false
+      require_api_key: false
+      results: HTML
+
   - name: geizhals
     engine: geizhals
     shortcut: geiz
@@ -2592,6 +2607,23 @@ engines:
     engine: wttr
     shortcut: wttr
     timeout: 9.0
+
+  - name: zapmeta
+    engine: xpath
+    shortcut: zpm
+    search_url: https://www.zapmeta.com/search?q={query}&pg={pageno}
+    results_xpath: //article[contains(@class, "organic-results-item")]
+    url_xpath: ./h2/a/@href
+    title_xpath: ./h2
+    content_xpath: ./p
+    paging: true
+    send_page_num_on_first_page: false  # otherwise blocks requests
+    disabled: true
+    about:
+      website: https://www.zapmeta.com/
+      use_official_api: false
+      require_api_key: false
+      results: HTML
 
   - name: braveapi
     engine: braveapi
