@@ -388,6 +388,34 @@ engines:
     shortcut: sp
     timeout: 6.0
 
+  - name: swisscows
+    disabled: false
+    engine: swisscows
+    categories: general
+    swisscows_category: web
+    results_per_page: 20
+    shortcut: sw
+
+  - name: swisscows images
+    disabled: false
+    engine: swisscows
+    categories: images
+    swisscows_category: images
+    shortcut: swi
+
+  - name: swisscows videos
+    disabled: false
+    engine: swisscows
+    categories: videos
+    swisscows_category: videos
+    results_per_page: 10
+    shortcut: swv
+
+  - name: swisscows news
+    disabled: false
+    engine: swisscows_news
+    shortcut: swn
+
   - name: yahoo
     disabled: false
     engine: yahoo
