@@ -1131,6 +1131,22 @@ engines:
     shortcut: hn
     disabled: true
 
+  - name: heexy
+    engine: heexy
+    categories: general
+    heexy_categ: web
+    shortcut: he
+    disabled: true
+    inactive: true
+
+  - name: heexy images
+    engine: heexy
+    categories: images
+    heexy_categ: image
+    shortcut: hei
+    disabled: true
+    inactive: true
+
   - name: hex
     engine: hex
     shortcut: hex
@@ -1959,6 +1975,14 @@ engines:
   #       - http://127.0.0.1:8888/
   #       - ...
   #   disabled: true
+
+  - name: seekninja
+    engine: seekninja
+    shortcut: sen
+    # very slow due to its server-side events architecture
+    timeout: 10
+    disabled: true
+    inactive: true
 
   - name: semantic scholar
     engine: semantic_scholar
