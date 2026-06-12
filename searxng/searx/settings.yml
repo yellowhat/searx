@@ -803,6 +803,34 @@ engines:
     display_type: ["infobox"]
     categories: [general]
 
+  - name: dogpile
+    engine: dogpile
+    shortcut: dog
+    dogpile_categ: search
+    categories: general
+    disabled: true
+
+  - name: dogpile images
+    engine: dogpile
+    shortcut: dogi
+    dogpile_categ: images
+    categories: images
+    disabled: true
+
+  - name: dogpile videos
+    engine: dogpile
+    shortcut: dogv
+    dogpile_categ: videos
+    categories: videos
+    disabled: true
+
+  - name: dogpile news
+    engine: dogpile
+    shortcut: dogn
+    dogpile_categ: news
+    categories: news
+    disabled: true
+
   # duckduckgo uses html.duckduckgo.com,
   # duckduckgo web uses duckduckgo.com
   - name: duckduckgo
@@ -899,21 +927,21 @@ engines:
   - name: fireball
     engine: fireball
     shortcut: fire
-    category: general
+    categories: general
     fireball_category: web
     disabled: true
 
   - name: fireball news
     engine: fireball
     shortcut: firen
-    category: news
+    categories: news
     fireball_category: news
     disabled: true
 
   - name: fireball videos
     engine: fireball
     shortcut: firev
-    category: videos
+    categories: videos
     fireball_category: videos
     disabled: true
 
