@@ -2,8 +2,8 @@
 name: Sync with upstream
 
 on:  # yamllint disable-line rule:truthy
-  schedule:
-    - cron: "0 1 * * *"  # UTC
+  # schedule:
+  #   - cron: "0 1 * * *"  # UTC
   workflow_dispatch:
 
 jobs:
