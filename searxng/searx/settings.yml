@@ -41,8 +41,8 @@ search:
   # Filter results. 0: None, 1: Moderate, 2: Strict
   safe_search: 0
   # Existing autocomplete backends: "360search", "baidu", "bing", "brave", "dbpedia", "duckduckgo", "google",
-  # "yandex", "mwmbl", "naver", "seznam", "sogou", "startpage", "swisscows", "quark", "qwant", "wikipedia" -
-  # leave blank to turn it off by default.
+  # "yandex", "privacywall", "mwmbl", "naver", "seznam", "sogou", "startpage", "swisscows", "quark", "qwant",
+  # "wikipedia" - leave blank to turn it off by default.
   autocomplete: ""
   # minimun characters to type before autocompleter starts
   autocomplete_min: 4
@@ -319,6 +319,23 @@ engines:
     engine: 9gag
     shortcut: 9g
     disabled: true
+
+  - name: abcnyheter
+    engine: xpath
+    paging: true
+    search_url: https://startsiden.abcnyheter.no/sok/?q={query}&page={pageno}
+    shortcut: abc
+    disabled: true
+    results_xpath: //ul[contains(@class, "results__list")]/li[contains(@class, "result")]
+    url_xpath: ./a/@href
+    title_xpath: ./a/h3
+    content_xpath: ./div
+    about:
+      website: https://abcnyheter.no
+      use_official_api: false
+      require_api_key: false
+      results: HTML
+      language: "no"
 
   - name: acfun
     engine: acfun
@@ -608,6 +625,12 @@ engines:
     engine: cara
     shortcut: ca
     disabled: true
+
+  # - name: chatnoir
+  #   engine: chatnoir
+  #   shortcut: cha
+  #   search_index: cw22
+  #   disabled: true
 
   - name: chefkoch
     engine: chefkoch
@@ -913,6 +936,24 @@ engines:
     shortcut: 1x
     timeout: 3.0
     disabled: true
+
+  - name: fastbot
+    engine: xpath
+    search_url: https://fastbot.de/search?q={query}
+    results_xpath: //section[contains(@class, 'organic-results')]/div[contains(@class, 'result-item')]
+    url_xpath: (./a/@href)[last()]
+    title_xpath: (./a)[last()]
+    content_xpath: ./div[contains(@class, 'snippet')]
+    suggestion_xpath: //section[contains(@class, 'related-searches')]//a/span[1]
+    shortcut: fa
+    categories: general
+    disabled: true
+    about:
+      website: https://fastbot.de
+      official_api_documentation:
+      use_official_api: false
+      require_api_key: false
+      results: HTML
 
   - name: fdroid
     engine: fdroid
@@ -1294,6 +1335,35 @@ engines:
     shortcut: iq
     disabled: true
 
+  # - name: kagi
+  #   engine: kagi
+  #   categories: [general, web]
+  #   shortcut: kg
+  #   api_key: ""  # required
+  #   kagi_categ: search
+
+  # - name: kagi.news
+  #   engine: kagi
+  #   categories: [news, web]
+  #   shortcut: kgn
+  #   api_key: ""  # required
+  #   kagi_categ: news
+
+  # - name: kagi.images
+  #   engine: kagi
+  #   categories: [images, web]
+  #   paging: false
+  #   shortcut: kgi
+  #   api_key: ""  # required
+  #   kagi_categ: images
+
+  # - name: kagi.videos
+  #   engine: kagi
+  #   categories: [videos, web]
+  #   shortcut: kgv
+  #   api_key: ""  # required
+  #   kagi_categ: videos
+
   - name: jisho
     engine: jisho
     shortcut: js
@@ -1406,6 +1476,38 @@ engines:
     engine: lucide
     shortcut: luc
     timeout: 3.0
+
+  - name: luxxle
+    engine: luxxle
+    categories: general
+    luxxle_categ: search
+    shortcut: lux
+    disabled: true
+    inactive: true
+
+  - name: luxxle images
+    engine: luxxle
+    categories: images
+    luxxle_categ: images
+    shortcut: luxi
+    disabled: true
+    inactive: true
+
+  - name: luxxle videos
+    engine: luxxle
+    categories: videos
+    luxxle_categ: videos
+    shortcut: luxv
+    disabled: true
+    inactive: true
+
+  - name: luxxle news
+    engine: luxxle
+    categories: news
+    luxxle_categ: news
+    shortcut: luxn
+    disabled: true
+    inactive: true
 
   - name: marginalia
     engine: marginalia
@@ -1765,6 +1867,11 @@ engines:
   #    query_str: 'SELECT * from my_table WHERE my_column = %(query)s'
   #    shortcut : psql
 
+  - name: podchaser
+    engine: podchaser
+    shortcut: poc
+    disabled: true
+
   - name: presearch
     engine: presearch
     search_type: search
@@ -1904,6 +2011,27 @@ engines:
     engine: radio_browser
     shortcut: rb
 
+  - name: rawweb
+    engine: json_engine
+    shortcut: rw
+    categories: general
+    paging: true
+    search_url: 'https://api.rawweb.org/api/search?keyword={query}&page={pageno}&lang=*'
+    results_query: data
+    url_query: link
+    title_query: title
+    content_query: content
+    title_html_to_text: true
+    content_html_to_text: true
+    disabled: true
+    inactive: true
+    about:
+      website: https://rawweb.org
+      official_api_documentation:
+      use_official_api: false
+      require_api_key: false
+      results: JSON
+
   - name: reddit
     engine: reddit
     shortcut: re
@@ -2022,6 +2150,28 @@ engines:
     shortcut: pi
     categories: [it, q&a]
     base_url: 'https://discourse.pi-hole.net'
+    disabled: true
+
+  - name: privacywall
+    engine: privacywall
+    categories: general
+    privacywall_category: general
+    paging: false  # only images and videos support pagination
+    shortcut: pw
+    disabled: true
+
+  - name: privacywall images
+    engine: privacywall
+    categories: images
+    privacywall_category: images
+    shortcut: pwi
+    disabled: true
+
+  - name: privacywall videos
+    engine: privacywall
+    categories: videos
+    privacywall_category: videos
+    shortcut: pwv
     disabled: true
 
   # - name: searx
@@ -2601,11 +2751,44 @@ engines:
     categories: videos
     disabled: true
 
+  - name: reloado
+    engine: xpath
+    paging: true
+    search_url: https://reloado.com/search?q={query}&page={pageno}
+    results_xpath: //div[contains(@class, 'result-item')]
+    url_xpath: .//div[contains(@class, 'result-title')]/a/@href
+    title_xpath: .//div[contains(@class, 'result-title')]/a
+    content_xpath: .//div[contains(@class, 'result-excerpt')]
+    shortcut: rel
+    categories: general
+    disabled: true
+    about:
+      website: https://reloado.com
+      official_api_documentation:
+      use_official_api: false
+      require_api_key: false
+      results: HTML
+      language: de
+
   - name: repology
     engine: repology
     shortcut: rep
     disabled: true
     inactive: true
+
+  - name: resulthunter
+    engine: resulthunter
+    resulthunter_categ: web
+    categories: general
+    shortcut: reh
+    disabled: true
+
+  - name: resulthunter images
+    engine: resulthunter
+    resulthunter_categ: images
+    categories: images
+    shortcut: rehi
+    disabled: true
 
   - name: swisscows
     engine: swisscows
@@ -2675,6 +2858,27 @@ engines:
   - name: voidlinux
     engine: voidlinux
     shortcut: void
+    disabled: true
+
+  - name: vuhuv
+    engine: vuhuv
+    categories: general
+    vuhuv_category: general
+    shortcut: vu
+    disabled: true
+
+  - name: vuhuv images
+    engine: vuhuv
+    categories: images
+    vuhuv_category: images
+    shortcut: vui
+    disabled: true
+
+  - name: vuhuv videos
+    engine: vuhuv
+    categories: videos
+    vuhuv_category: videos
+    shortcut: vuv
     disabled: true
 
   - name: wallhaven
@@ -2809,6 +3013,38 @@ engines:
     about:
       website: https://minecraft.wiki/
       wikidata_id: Q105533483
+
+  # s1search google engines / mirrors
+  - name: searchtoday
+    engine: s1search
+    shortcut: std
+    base_url: https://info.searchtoday.site
+    disabled: true
+
+  # - name: webcrawler
+  #   engine: s1search
+  #   shortcut: wc
+  #   base_url: https://www.webcrawler.com
+  #   disabled: true
+
+  # s1search yahoo engines / mirrors
+  # - name: excite
+  #   engine: s1search
+  #   shortcut: exc
+  #   base_url: https://results.excite.com.s1search.co
+  #   disabled: true
+
+  # - name: metacrawler
+  #   engine: s1search
+  #   shortcut: mec
+  #   base_url: https://search.metacrawler.com
+  #   disabled: true
+
+  - name: infospace
+    engine: s1search
+    shortcut: ifs
+    base_url: https://search.infospace.com
+    disabled: true
 
 # Doku engine lets you access to any Doku wiki instance:
 # A public one or a privete/corporate one.
