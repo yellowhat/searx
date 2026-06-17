@@ -1,4 +1,4 @@
-FROM docker.io/alpine:3.24.0
+FROM docker.io/alpine:3.24.1
 
 EXPOSE 8080
 VOLUME /etc/searxng
